@@ -1,0 +1,60 @@
+body {
+    background-color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+.welcomePage {
+    background-image: url('./assets/images/drinks-01.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    padding-top: 100px;
+}
+
+.homePage {
+    justify-content: center;
+    display: flex;
+}
+
+.welcomeBox {
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    padding-bottom: 470px;
+}
+
+.catalog {
+    justify-content: center;
+    align-items: end;
+    display: flex;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    margin-bottom: 0px;
+}
+
+.col-4 {
+    text-align: center;
+}
+
+.links {
+    text-decoration: none;
+    color: #000000;
+}
+
+.row {
+    margin: 0px;
+}
+
+img {
+    height: 250px;
+    width: 300px;
+}
