@@ -39,25 +39,33 @@ const Navbar = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="absolute" style={{ height: '100px' }}>
+            <AppBar position="absolute" style={{ height: '85px' }}>
                 <Toolbar>
                     <Typography variant="h4" className={classes.title}>
                         <Link to="/home-page" className="links">
                             <img
                                 src={logo}
-                                style={{ height: '95px', paddingTop: '5px' }}
+                                style={{ height: '80px', paddingTop: '5px' }}
                                 alt="logo"
                             />
                         </Link>
                     </Typography>
-                    <IconButton
-                        edge="end"
-                        className={classes.menuButton}
-                        color="inherit"
-                        font="big"
+                    <Link
+                        to="/cart"
+                        style={{
+                            textDecoration: 'none',
+                            color: '#ffffff',
+                        }}
                     >
-                        <ShoppingCart />
-                    </IconButton>
+                        <IconButton
+                            edge="end"
+                            className={classes.menuButton}
+                            color="inherit"
+                            font="big"
+                        >
+                            <ShoppingCart />
+                        </IconButton>
+                    </Link>
                     <Button color="inherit" onClick={handleClickOpen}>
                         Login
                     </Button>

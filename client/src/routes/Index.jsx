@@ -6,6 +6,7 @@ import Navbar from '../components/header/Navbar';
 import HomePage from '../views/HomePage';
 import WelcomePage from '../views/WelcomePage';
 import Store from '../views/store/Index';
+import Cart from '../views/cart/Index';
 
 const Routes = () => {
     return (
@@ -15,6 +16,7 @@ const Routes = () => {
                 <Route exact path="/" component={WelcomePage} />
                 <Route exact path="/home-page" component={HomePage} />
                 <Route exact path="/store" component={Store} />
+                <Route exact path="/cart" component={Cart} />
             </Switch>
         </Router>
     );

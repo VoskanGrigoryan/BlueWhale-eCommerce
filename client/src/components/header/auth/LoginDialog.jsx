@@ -21,7 +21,7 @@ const LoginDialog = ({ open, handleClose }) => {
             <DialogContent>
                 <DialogContentText>
                     If you don't have an account click{' '}
-                    <b onClick={() => console.log('Hola')}>here</b>
+                    <b onClick={() => console.log('Test')}>here</b>
                 </DialogContentText>
                 <TextField
                     autoFocus
@@ -44,7 +44,7 @@ const LoginDialog = ({ open, handleClose }) => {
                     Cancel
                 </Button>
                 <Button onClick={handleClose} color="primary">
-                    Subscribe
+                    Login
                 </Button>
             </DialogActions>
         </Dialog>
