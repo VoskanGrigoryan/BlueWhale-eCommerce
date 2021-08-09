@@ -1,5 +1,7 @@
 import React from 'react';
 import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+
+//Components
 import Navbar from '../components/header/Navbar';
 
 //Views

@@ -54,7 +54,7 @@ const getProducts = async (req, res) => {
         return res.status(409).json({ alert: alerts.noProducts });
     }
 
-    res.status(302).send(products);
+    res.status(200).send(products);
 };
 
 //UPDATE SINGLE PRODUCT FROM DB
