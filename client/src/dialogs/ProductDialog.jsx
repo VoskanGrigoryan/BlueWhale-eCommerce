@@ -22,7 +22,7 @@ const LoginDialog = ({ open, handleClose, item }) => {
 
     return (
         <Dialog open={open} onClose={handleClose}>
-            <DialogTitle>
+            <DialogTitle style={{ width: '400px' }}>
                 <Typography variant="h4" color="initial">
                     {item.name}
                 </Typography>

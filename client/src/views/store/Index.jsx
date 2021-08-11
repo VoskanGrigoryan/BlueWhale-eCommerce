@@ -29,13 +29,15 @@ const Store = () => {
     return (
         <div className="min-vh-100 catalog row" style={{ paddingTop: '140px' }}>
             <Paper elevation={5} className="col-4 p-3 row text-center">
-                <div className="bg-dark p-1">
-                    <Typography variant="h3" color="primary">
+                <div className="p-1">
+                    <Typography variant="h4" color="primary">
                         Catalog
                     </Typography>
                 </div>
+
                 <Paper elevation={3} className=" mt-2">
-                    <InputBase placeholder="Search products" />
+                    <InputBase placeholder="Search products" width="75" />
+
                     <IconButton type="submit">
                         <Search />
                     </IconButton>
@@ -43,7 +45,7 @@ const Store = () => {
             </Paper>
             <div className="col-12 row mx-0 p-2">
                 {products.map((item, index) => {
-                    return <ProdCard item={item} />;
+                    return <ProdCard key={index} item={item} index={index} />;
                 })}
             </div>
         </div>

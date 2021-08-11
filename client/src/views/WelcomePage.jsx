@@ -9,11 +9,7 @@ const WelcomePage = () => {
         <div className="min-vh-100 welcomePage">
             <div className="welcomeBox">
                 <div>
-                    <Typography
-                        className="text-light"
-                        variant="h3"
-                        component="h2"
-                    >
+                    <Typography className="" variant="h3" component="h2">
                         <Bounce left cascade>
                             Buy your drinks online
                         </Bounce>

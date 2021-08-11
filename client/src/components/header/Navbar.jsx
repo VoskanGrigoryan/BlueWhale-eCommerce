@@ -11,6 +11,7 @@ import { ShoppingCart } from '@material-ui/icons';
 import { Link } from 'react-router-dom';
 import LoginDialog from './auth/LoginDialog';
 import logo from '../../assets/images/longLogo.png';
+import UserWizard from './auth/UserWizard';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -39,13 +40,13 @@ const Navbar = () => {
 
     return (
         <div className={classes.root}>
-            <AppBar position="absolute" style={{ height: '85px' }}>
+            <AppBar position="absolute" style={{ height: '70px' }}>
                 <Toolbar>
                     <Typography variant="h4" className={classes.title}>
                         <Link to="/home-page" className="links">
                             <img
                                 src={logo}
-                                style={{ height: '80px', paddingTop: '5px' }}
+                                style={{ height: '65px', paddingTop: '4px' }}
                                 alt="logo"
                             />
                         </Link>
@@ -70,7 +71,8 @@ const Navbar = () => {
                         Login
                     </Button>
                 </Toolbar>
-                <LoginDialog open={open} handleClose={handleClose} />
+
+                <UserWizard open={open} handleClose={handleClose} />
             </AppBar>
         </div>
     );

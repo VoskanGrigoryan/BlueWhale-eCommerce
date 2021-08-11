@@ -9,6 +9,7 @@ const errors = {
 
 const alerts = {
     noProducts: 'Currently no entries in DB',
+    noUsers: 'Currently no users in DB',
 };
 
 const notifications = {

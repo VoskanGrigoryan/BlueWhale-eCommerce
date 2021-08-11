@@ -1,5 +1,10 @@
 import express from 'express';
-import { registerUser, loginUser, test1 } from '../controller/user.js';
+import {
+    registerUser,
+    loginUser,
+    test1,
+    allUsers,
+} from '../controller/user.js';
 import {
     newProduct,
     getProducts,
@@ -11,6 +16,7 @@ const router = express.Router();
 
 router.post('/register', registerUser);
 router.post('/login', loginUser);
+router.get('/users', allUsers);
 router.get('/test', test1);
 
 //Product routes

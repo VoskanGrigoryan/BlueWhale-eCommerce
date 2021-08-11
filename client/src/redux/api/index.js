@@ -1,14 +1,16 @@
 import axios from 'axios';
 
+const localhost = 'http://localhost:4000';
+
 //User
-const registerUserUrl = 'http://localhost:4000/register';
-const loginUserUrl = 'http://localhost:4000/login';
+const registerUserUrl = localhost + '/register';
+const loginUserUrl = localhost + '/login';
 
 //Products
-const createProdUrl = 'http://localhost:4000/new-product';
-const getProductsUrl = 'http://localhost:4000/get-products';
-const updateProductUrl = 'http://localhost:4000/update-product';
-const deleteProductUrl = 'http://localhost:4000/delete-product';
+const createProdUrl = localhost + '/new-product';
+const getProductsUrl = localhost + '/get-products';
+const updateProductUrl = localhost + '/update-product';
+const deleteProductUrl = localhost + '/delete-product';
 
 //------------------------------------------------------------------------------------------------------------------//
 
@@ -20,4 +22,5 @@ export const loginUser = (user) => axios.post(loginUserUrl, user);
 export const createProduct = (product) => axios.post(createProdUrl, product);
 export const getProducts = () => axios.get(getProductsUrl);
 export const updateProduct = (product) => axios.put(updateProductUrl, product);
-export const deleteProduct = (product) => axios.put(deleteProductUrl, product);
+export const deleteProduct = (product) =>
+    axios.delete(deleteProductUrl, product);

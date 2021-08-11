@@ -3,12 +3,14 @@ import bcrypt from 'bcrypt';
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import log4js from 'log4js';
+import path from 'path';
 import jwt from 'jsonwebtoken';
 // import jwt from 'json-web-token';
 
 import { errors, notifications } from '../constants.js';
 
 dotenv.config();
+const __dirname = path.resolve(path.dirname(''));
 const logger = log4js.getLogger('default');
 
 //Nodemailer configuration
@@ -24,7 +26,7 @@ const Transporter = nodemailer.createTransport({
 
 const registerUser = async (req, res) => {
     const userData = req.body;
-    const { email, password } = userData;
+    const { email, userName, password } = userData;
 
     const emailExists = await User.findOne({ email: email });
     if (emailExists) {
@@ -49,11 +51,20 @@ const registerUser = async (req, res) => {
             from: 'Gmail',
             to: email,
             subject: 'Account succesfully created!',
-            html: `<h3>Hi, this email was made to notify that an account was
-            created for the online store <h2>BlueWhale™</h2> using the following email: ${email}.
-            If you did not create an account in this website please reach out to the support team
-            and make sure that your passwords and personal accounts are safe!
+            html: `
+            <img src="cid:unique@kreata.ee" width="1052" height="400"/>
+            <h3>Hello ${userName}! This email was sent in order to notify you that an account was
+            created for the online store <h2>BlueWhale™</h2> using the following email: ${email}
+            If you did not create an account in this website please reach out to our support team. <br />
+            <hr />Regards, BlueWhale Development Team
             </h3>`,
+            attachments: [
+                {
+                    filename: 'bwCover.png',
+                    path: __dirname + '\\files\\bwCover.png',
+                    cid: 'unique@kreata.ee',
+                },
+            ],
         };
 
         //sending action
@@ -102,7 +113,11 @@ const loginUser = async (req, res) => {
     // );
 
     try {
-        let payload = { email: email };
+        let payload = {
+            email: email,
+            userName: user.userName,
+            id: user._id,
+        };
 
         //create the access token with the shorter lifespan
         let accessToken = jwt.sign(payload, process.env.ACCESS_TOKEN_SECRET, {
@@ -120,13 +135,23 @@ const loginUser = async (req, res) => {
 
         res.cookie('jwt', accessToken, { secure: true, httpOnly: true });
         logger.info(notifications.success + '👌');
-        res.status(200).send(user);
+        res.status(200).send(payload);
     } catch (err) {
         console.log(err);
     }
 };
 
+const allUsers = async (req, res) => {
+    let users = await User.find();
+
+    if (users.length === 0) {
+        return res.status(409).json({ alert: alerts.noUsers });
+    }
+
+    res.status(200).send(users);
+};
+
 const test1 = (req, res) => {
     res.status(200).send('Testing a test');
 };
-export { registerUser, loginUser, test1 };
+export { registerUser, loginUser, test1, allUsers };
