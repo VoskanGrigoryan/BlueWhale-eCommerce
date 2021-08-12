@@ -18,6 +18,10 @@ const getCartsUrl = localhost + '/carts';
 const addItemUrl = localhost + '/add-item';
 const deleteItemUrl = localhost + '/delete-item';
 
+//Orders
+const createOrderUrl = localhost + '/create-order';
+const confirmOrderUrl = localhost + '/confirm-order';
+
 //------------------------------------------------------------------------------------------------------------------//
 
 //User
@@ -41,3 +45,7 @@ export const getCarts = () => axios.get(getCartsUrl);
 //------------------------------------------------------------------------------------//
 export const addItem = (cart) => axios.post(addItemUrl, cart);
 export const deleteItem = (cart) => axios.post(deleteItemUrl, cart);
+
+//Orders
+export const createOrder = (order) => axios.post(createOrderUrl, order);
+export const confirmOrder = (order) => axios.post(confirmOrderUrl, order);
