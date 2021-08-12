@@ -1,24 +1,19 @@
 import express from 'express';
-import {
-    registerUser,
-    loginUser,
-    test1,
-    allUsers,
-} from '../controller/user.js';
+import { registerUser, loginUser, allUsers } from '../controller/user.js';
 import {
     newProduct,
     getProducts,
     updateProduct,
     deleteProduct,
 } from '../controller/product.js';
-import { newCart, getCarts, addItem } from '../controller/cart.js';
+import { newCart, getCarts, addItem, deleteItem } from '../controller/cart.js';
 
 const router = express.Router();
 
+//User routes
 router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/users', allUsers);
-router.get('/test', test1);
 
 //Product routes
 router.post('/new-product', newProduct);
@@ -30,5 +25,8 @@ router.delete('/delete-product', deleteProduct);
 router.post('/create-cart', newCart);
 router.get('/carts', getCarts);
 router.post('/add-item', addItem);
+//Much easier to use SEND with the cart data and find the product to delete
+// router.delete('/delete-item', deleteItem);
+router.post('/delete-item', deleteItem);
 
 export default router;

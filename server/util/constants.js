@@ -5,6 +5,11 @@ const errors = {
     productDoesntExist: 'A product with that name does not exist',
     passwordInvalid: 'Current password is not valid',
     payloadInvalid: 'Payload has one or more invalid fields',
+    cartExists: 'Cart already exists for this user',
+    cartDoesntExist: "Cart doesn't exist",
+    cantCartFindById: "Can't find cart by the provided ID",
+    noCartsInDB: 'No shopping carts in DB',
+    currentParamsNotValid: 'Provided params are not valid',
 };
 
 const alerts = {

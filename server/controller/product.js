@@ -1,7 +1,7 @@
 import Product from '../models/product.js';
 import dotenv from 'dotenv';
 import log4js from 'log4js';
-import { errors, alerts } from '../constants.js';
+import { errors, alerts } from '../util/constants.js';
 
 dotenv.config();
 
@@ -77,10 +77,8 @@ const updateProduct = async (req, res) => {
 
 //DELETE SINGLE PRODUCT FROM DB
 const deleteProduct = async (req, res) => {
-    let test = req.query;
+    // let test = req.query;
     let selectedProd = await Product.findOne({ name: req.body.name });
-
-    console.log(test);
 
     if (!selectedProd) {
         return res.status(404).json({ error: errors.productDoesntExist });

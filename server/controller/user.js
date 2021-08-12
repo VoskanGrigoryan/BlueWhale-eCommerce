@@ -7,13 +7,13 @@ import path from 'path';
 import jwt from 'jsonwebtoken';
 // import jwt from 'json-web-token';
 
-import { errors, notifications } from '../constants.js';
+import { errors, notifications } from '../util/constants.js';
 
 dotenv.config();
 const __dirname = path.resolve(path.dirname(''));
 const logger = log4js.getLogger('default');
 
-//Nodemailer configuration
+//NODEMAILER CONFIG
 const Transporter = nodemailer.createTransport({
     service: 'Gmail',
     secure: false,
@@ -24,6 +24,7 @@ const Transporter = nodemailer.createTransport({
     },
 });
 
+//REGISTERS A USER & SEND NOTIFICATION EMAIL
 const registerUser = async (req, res) => {
     const userData = req.body;
     const { email, userName, password } = userData;
@@ -82,6 +83,7 @@ const registerUser = async (req, res) => {
     }
 };
 
+//LOGS IN THE USER AND SENDS BACK USER DATA & ACCESS TOKEN
 const loginUser = async (req, res) => {
     const userData = req.body;
     const { email, password } = userData;
@@ -141,6 +143,7 @@ const loginUser = async (req, res) => {
     }
 };
 
+//ONLY FOR TESTING, SHOULD NOT BE USED IN APP
 const allUsers = async (req, res) => {
     let users = await User.find();
 
@@ -151,7 +154,4 @@ const allUsers = async (req, res) => {
     res.status(200).send(users);
 };
 
-const test1 = (req, res) => {
-    res.status(200).send('Testing a test');
-};
-export { registerUser, loginUser, test1, allUsers };
+export { registerUser, loginUser, allUsers };

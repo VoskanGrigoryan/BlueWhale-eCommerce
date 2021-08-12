@@ -1,8 +1,6 @@
 import mongoose from 'mongoose';
 // import Product from './product.js';
 
-const { Schema } = mongoose;
-
 var cartSchema = mongoose.Schema({
     userID: { type: String, required: false },
     active: { type: Boolean, required: false },

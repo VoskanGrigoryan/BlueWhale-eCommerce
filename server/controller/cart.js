@@ -2,11 +2,9 @@ import Cart from '../models/cart.js';
 import User from '../models/user.js';
 import dotenv from 'dotenv';
 import date from 'date-and-time';
-import { errors, alerts } from '../constants.js';
+import { errors, alerts } from '../util/constants.js';
 
 dotenv.config();
-
-// const logger = log4js.getLogger('default');
 
 //CREATE NEW CART AND INSERT IN 'carts' COLLECTION
 const newCart = async (req, res) => {
@@ -20,9 +18,7 @@ const newCart = async (req, res) => {
         let cartExists = await Cart.findOne({ userID: user._id });
 
         if (cartExists) {
-            return res
-                .status(409)
-                .send({ error: 'Cart already exists for this user' });
+            return res.status(409).send({ error: errors.cartExists });
         }
         const payload = {
             userID: user._id,
@@ -40,16 +36,15 @@ const newCart = async (req, res) => {
     }
 };
 
+//ADDS AN ITEM TO THE CART
 const addItem = async (req, res) => {
     const { userEmail } = req.body;
 
     let user = await User.findOne({ email: userEmail });
     let cartExists = await Cart.findOne({ userID: user._id });
 
-    console.log(cartExists);
-
     if (!cartExists) {
-        return res.status(409).send({ error: "Cart doesn't exist" });
+        return res.status(409).send({ error: errors.cartDoesntExist });
     }
 
     const payload = {
@@ -66,23 +61,54 @@ const addItem = async (req, res) => {
             return res.send(payload);
         }
     );
-
-    // const shoppingCart = new Cart(payload);
-    // shoppingCart.save();
-
-    // res.status(200).send(shoppingCart);
 };
 
-const deleteItem = async (req, res) => {};
+const deleteItem = async (req, res) => {
+    // Options with query params to long for cart option
+    // const productId = req.query.productId;
 
+    const { cartID, userID, productID } = req.body;
+
+    if (!cartID || !userID) {
+        return res.status(404).json({ error: errors.currentParamsNotValid });
+    }
+
+    let userCart = await Cart.findOne({ _id: cartID });
+
+    if (!userCart) {
+        return res.status(409).json({ error: errors.cantCartFindById });
+    }
+
+    const arrItems = userCart.products;
+    if (arrItems.length > 0) {
+        // const item = arrItems.find((item) => item.prodID === productID);
+
+        let test1 = arrItems.findIndex((item) => {
+            return item.prodID === productID;
+        });
+
+        if (test1 !== -1) arrItems.splice(test1, 1);
+    }
+
+    const payload = {
+        products: arrItems,
+    };
+
+    Cart.findByIdAndUpdate(cartID, payload, { new: true }, (err, payload) => {
+        if (err) return res.status(500).send(err);
+        return res.send(payload);
+    });
+};
+
+//ONLY FOR TESTING, SHOULD NOT BE USED IN APP
 const getCarts = async (req, res) => {
     let shoppingCarts = await Cart.find();
 
     if (shoppingCarts.length === 0) {
-        return res.status(409).json({ alert: 'No shopping carts in the DB' });
+        return res.status(409).json({ alert: errors.noCartsInDB });
     }
 
     res.status(200).send(shoppingCarts);
 };
 
-export { newCart, getCarts, addItem };
+export { newCart, getCarts, addItem, deleteItem };
