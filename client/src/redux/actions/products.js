@@ -29,9 +29,9 @@ export const updateProduct = () => async (dispatch) => {
     }
 };
 
-export const deleteProduct = () => async (dispatch) => {
+export const deleteProduct = (productId) => async (dispatch) => {
     try {
-        const { data } = await api.deleteProduct();
+        const { data } = await api.deleteProduct(productId);
 
         dispatch({ type: 'DELETE_PRODUCT', payload: data });
     } catch (error) {
