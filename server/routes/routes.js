@@ -7,7 +7,7 @@ import {
     deleteProduct,
 } from '../controller/product.js';
 import { newCart, getCarts, addItem, deleteItem } from '../controller/cart.js';
-import { createOrder } from '../controller/order.js';
+import { createOrder, confirmOrder } from '../controller/order.js';
 
 const router = express.Router();
 
@@ -32,5 +32,6 @@ router.post('/delete-item', deleteItem);
 
 //Order routes
 router.post('/create-order', createOrder);
+router.post('/confirm-order', confirmOrder);
 
 export default router;

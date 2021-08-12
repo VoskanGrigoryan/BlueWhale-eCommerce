@@ -62,7 +62,7 @@ const registerUser = async (req, res) => {
             attachments: [
                 {
                     filename: 'bwCover.png',
-                    path: __dirname + '\\files\\bwCover.png',
+                    path: __dirname + '\\util\\files\\bwCover.png',
                     cid: 'unique@kreata.ee',
                 },
             ],

@@ -1,6 +1,7 @@
 import Product from '../models/product.js';
 import dotenv from 'dotenv';
 import log4js from 'log4js';
+import date from 'date-and-time';
 import { errors, alerts } from '../util/constants.js';
 
 dotenv.config();
@@ -9,40 +10,53 @@ const logger = log4js.getLogger('default');
 
 //CREATE NEW PROD AND SEND TO DB
 const newProduct = async (req, res) => {
-    const product = req.body;
-    const { name, amount, description, alcoholLevel, price } = product;
-
-    const productExists = await Product.findOne({ name: name });
-    if (productExists) {
-        return res.status(400).json({ error: errors.nameExists });
-    }
-
-    if (
-        name === null ||
-        name === '' ||
-        name === undefined ||
-        amount === '' ||
-        amount === null ||
-        amount === undefined ||
-        description === '' ||
-        description === null ||
-        description === undefined ||
-        alcoholLevel === '' ||
-        alcoholLevel === null ||
-        alcoholLevel === undefined ||
-        price === '' ||
-        price === null ||
-        price === undefined
-    ) {
-        return res.status(409).json({ error: errors.payloadInvalid });
-    }
-    const newProduct = new Product(product);
+    const { name, amount, description, alcoholLevel, price, imageUrl } =
+        req.body;
 
     try {
+        const productExists = await Product.findOne({ name: name });
+        if (productExists) {
+            return res.status(400).json({ error: errors.nameExists });
+        }
+
+        if (
+            name === null ||
+            name === '' ||
+            name === undefined ||
+            amount === '' ||
+            amount === null ||
+            amount === undefined ||
+            description === '' ||
+            description === null ||
+            description === undefined ||
+            alcoholLevel === '' ||
+            alcoholLevel === null ||
+            alcoholLevel === undefined ||
+            price === '' ||
+            price === null ||
+            price === undefined
+        ) {
+            return res.status(409).json({ error: errors.payloadInvalid });
+        }
+
+        const currentTime = new Date();
+        const newDate = date.format(currentTime, 'YYYY/MM/DD');
+
+        const paylaod = {
+            name: name,
+            amount: amount,
+            description: description,
+            alcoholLevel: alcoholLevel,
+            price: price,
+            imageUrl: imageUrl,
+            creationDate: newDate,
+        };
+
+        const newProduct = new Product(paylaod);
         newProduct.save();
         res.status(201).json(newProduct);
-    } catch (error) {
-        res.status(409).json({ error: error });
+    } catch (err) {
+        res.status(409).send({ error: err });
     }
 };
 

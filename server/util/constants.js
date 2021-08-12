@@ -15,6 +15,7 @@ const errors = {
     noCartsInDB: 'No shopping carts in DB',
     userIDInvalid: 'User ID is not valid',
     currentParamsNotValid: 'Provided params are not valid',
+    orderDoesntExist: 'Order does not exist',
 };
 
 const alerts = {
