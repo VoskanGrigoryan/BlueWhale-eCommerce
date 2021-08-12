@@ -26,6 +26,7 @@ router.post('/create-cart', newCart);
 router.get('/carts', getCarts);
 router.post('/add-item', addItem);
 //Much easier to use SEND with the cart data and find the product to delete
+// router.delete('/delete-item', deleteItem);
 router.post('/delete-item', deleteItem);
 
 export default router;
