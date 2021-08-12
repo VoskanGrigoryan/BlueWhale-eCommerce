@@ -7,6 +7,7 @@ import {
     deleteProduct,
 } from '../controller/product.js';
 import { newCart, getCarts, addItem, deleteItem } from '../controller/cart.js';
+import { createOrder } from '../controller/order.js';
 
 const router = express.Router();
 
@@ -28,5 +29,8 @@ router.post('/add-item', addItem);
 //Much easier to use SEND with the cart data and find the product to delete
 // router.delete('/delete-item', deleteItem);
 router.post('/delete-item', deleteItem);
+
+//Order routes
+router.post('/create-order', createOrder);
 
 export default router;

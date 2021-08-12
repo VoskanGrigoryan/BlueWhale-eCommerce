@@ -8,7 +8,12 @@ const errors = {
     cartExists: 'Cart already exists for this user',
     cartDoesntExist: "Cart doesn't exist",
     cantCartFindById: "Can't find cart by the provided ID",
+    noProductsInCart: 'No products in shopping cart',
+    noOrderTime: 'No valid order time',
+    noArrivalTime: 'No valid arrival time',
+    noDeliveryCost: 'Delivery cost value is not valid',
     noCartsInDB: 'No shopping carts in DB',
+    userIDInvalid: 'User ID is not valid',
     currentParamsNotValid: 'Provided params are not valid',
 };
 
