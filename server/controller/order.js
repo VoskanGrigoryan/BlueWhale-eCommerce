@@ -3,6 +3,7 @@ import User from '../models/user.js';
 import dotenv from 'dotenv';
 import path from 'path';
 import nodemailer from 'nodemailer';
+import date from 'date-and-time';
 import { errors } from '../util/constants.js';
 
 dotenv.config();
@@ -22,22 +23,31 @@ const __dirname = path.resolve(path.dirname(''));
 //CREATES ORDER
 const createOrder = async (req, res) => {
     const { userID, cart, orderTime, arrivalTime, deliveryCost } = req.body;
+    const payload = {};
 
     if (userID === undefined || userID === null || userID === '') {
-        return res.status(409).send({ error: errors.userIDInvalid });
+        payload.error = errors.userIDInvalid;
+        return res.status(409).send({
+            error: errors.userIDInvalid,
+        });
     }
     if (cart.products.length <= 0) {
-        return res.status(409).send({ error: errors.noProductsInCart });
+        payload.error = errors.noProductsInCart;
+        return res.status(409).send({
+            error: errors.noProductsInCart,
+        });
     }
     if (orderTime === undefined || orderTime === null || orderTime === '') {
-        return res.status(409).send({ error: errors.noOrderTime });
+        payload.error = errors.noOrderTime;
+        return res.status(409).send({
+            error: errors.noOrderTime,
+        });
     }
-    if (
-        arrivalTime === undefined ||
-        arrivalTime === null ||
-        arrivalTime === ''
-    ) {
-        return res.status(409).send({ error: errors.noArrivalTime });
+    if (arrivalTime === undefined || arrivalTime === null || arrivalTime === '') {
+        payload.error = errors.noArrivalTime;
+        return res.status(409).send({
+            error: errors.noArrivalTime,
+        });
     }
     if (
         deliveryCost === undefined ||
@@ -45,23 +55,31 @@ const createOrder = async (req, res) => {
         deliveryCost === '' ||
         deliveryCost.value < 0
     ) {
-        return res.status(409).send({ error: errors.noDeliveryCost });
+        payload.error = errors.noDeliveryCost;
+        return res.status(409).send({
+            error: errors.noDeliveryCost,
+        });
     }
+
+    //Random Number generator for order ID
+    // const orderID = Math.floor(100000 + Math.random() * 900000000000000);
 
     //Could add option for order finished/in progress
     //So that I can store finished orders in the same collection
-    const payload = {
-        userID: userID,
-        cart: cart.products,
-        orderTime: orderTime,
-        arrivalTime: arrivalTime,
-        deliveryCost: deliveryCost,
-    };
+    (payload.userID = userID),
+        (payload.cart = cart.products),
+        (payload.orderTime = orderTime),
+        (payload.arrivalTime = arrivalTime),
+        (payload.deliveryCost = deliveryCost);
 
-    const order = new Order(payload);
-    order.save();
+    try {
+        const order = new Order(payload);
+        order.save();
 
-    res.status(200).send(payload);
+        res.status(200).send(payload);
+    } catch (err) {
+        res.status(409).send(err);
+    }
 };
 
 //CONFIRMS ORDER & SEND EMAIL NOTIFICATION
@@ -70,26 +88,68 @@ const confirmOrder = async (req, res) => {
     const { userID } = req.body;
     const payload = {};
 
-    let orderExists = await Order.findOne({ userID: userID });
-    // let orderExists = await User.findOne({ _id: userID });
+    let orderExists = await Order.findOne({
+        userID: userID,
+    });
+    let user = await User.findOne({ _id: userID });
+
+    const { _id, orderTime, deliveryCost, cart } = orderExists;
+    const { email, userName } = user;
+
     if (!orderExists) {
         payload.error = errors.orderDoesntExist;
         return res.status(409).send(payload);
     }
 
+    console.log(cart);
+
+    const formatDate = date.format(orderTime, 'ddd, MMM DD YYYY');
+    const getProducts = () => {
+        let elements = '';
+        cart.forEach((element) => {
+            elements += `<ul><li><strong>Product name:</strong> ${element.name}<ul>
+                    <li><strong>Quantity</strong>: ${element.amount}</li>
+                    <li><strong>Description: </strong>${element.description}</li>
+                    <li><strong>Alcohol level:</strong> ${element.alcoholLevel}</li>
+                    <li><strong>Price:</strong> $${element.price}</li></ul></li></ul>`;
+        });
+
+        return elements;
+    };
+    getProducts();
+
     const mailOptions = {
         from: 'Gmail',
-        to: orderExists.email,
+        to: user.email,
         subject: 'BlueWhale order purchase confirmation',
         html: `
-            <img src="cid:unique@kreata.ee" width="1052" height="400"/>
-            <h2>Hi!</h2> <h3>We wanted to let you know that the product you purchased has been successfully processed
-            Remember that your order should arrive in the next 4-5 business days but it may take a little longer due to COVID.
-            Also remember that you will need your ID the day that the delivery arrives so that our staff can verify your identity.
-            <br />
-            We thank you deeply for your purchase and we hope that you'll be more than satisfied with your order
-            Best regards, <h2>BlueWhale™</h2> Sales Team
-            </h3>`,
+            <img src="cid:unique@kreata.ee" width="auto" height="400"/>
+            <h2>Hello ${userName}!</h2>
+
+            <h3 style="margin:0">
+                From the BlueWhale sales team we wanted to let you know that your purchase has been confirmed and you'll
+                be receiving your order in the next 3-5 business days. Remember that you'll need the order code for when
+                the delivery arrives with your purchase. Order Code: ${_id}.
+            </h3>
+            <h3>
+                This is the information regarding your purchase:
+            </h3>
+            <h3 style="margin:0">
+                Order time: ${formatDate},
+
+            </h3>
+            <h3 style="margin:0">
+                Delivery cost: ${deliveryCost}
+            </h3>
+            <h3>
+                ${getProducts()}
+            </h3>
+            <h3>
+                In case that you did not order any of these products please contact our support team! Someone might be
+                using your email without your consent. <Strong>Support:</Strong> blue.whale.support@gmail.com
+            </h3>
+            <h3 style="margin:0">We thank for buying at our online store & we hope that you are happy with your purchase. Best regards, <h2>BlueWhale sales team</h2></h3>
+            `,
         attachments: [
             {
                 filename: 'bwCover.png',

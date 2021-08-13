@@ -24,7 +24,7 @@ const Transporter = nodemailer.createTransport({
     },
 });
 
-//REGISTERS A USER & SEND NOTIFICATION EMAIL
+//REGISTERS USER & SEND NOTIFICATION EMAIL
 const registerUser = async (req, res) => {
     const userData = req.body;
     const { email, userName, password } = userData;
