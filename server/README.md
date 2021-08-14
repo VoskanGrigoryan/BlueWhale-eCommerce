@@ -5,21 +5,21 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
 1.  ## User
 
-    ### - URL:
+    -   ### URL:
 
         <localhost:4000/register>
 
-    ### - Method:
+    -   ### Method:
 
         `POST`
 
-    ### - URL Params:
+    -   ### URL Params:
 
         Required:
 
         Optional:
 
-    ### - Data Params:
+    -   ### Data Params:
 
         {
         "email": "user.email@hotmail.com",
