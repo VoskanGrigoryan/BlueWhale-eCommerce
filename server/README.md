@@ -142,7 +142,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
                 Code: 200
                 Content:
 
-                ```json
+
                 [{
                     "_id": "6110751991c0a40e70ab372a",
                     "name": "TEST 3",
@@ -151,7 +151,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
                     "alcoholLevel": "35%",
                     "price": 200,
                 }]
-                ```
+
 
             -   ### Error Response:
 
