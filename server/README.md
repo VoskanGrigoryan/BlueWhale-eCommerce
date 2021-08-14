@@ -7,10 +7,27 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     - URL:
 
-    <localhost:4000/register>
+        <localhost:4000/register>
 
     - Method:
 
-    @Test
+        `POST`
+
+    - URL Params:
+
+        ### Required:
+
+        ### Optional:
+
+    - Data Params:
+
+        {
+        "email": "user.email@hotmail.com",
+        "userName":" User Name",
+        "password":"1234567"
+        }
+
+        //email has veritifaction process, if not a real email will throw an error
+        //password will have to be at least 6-7 characters long
 
 2. Test 2
