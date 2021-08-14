@@ -3,7 +3,10 @@
 This file is for identifying and explainig all the API calls within the application.
 The application counts with four mayor backend operations: User, Product, Cart and Order.
 
-1. Test 1
+1. ## User
+
+    - URL
+
+    <localhost:4000/register>
+
 2. Test 2
-
-
