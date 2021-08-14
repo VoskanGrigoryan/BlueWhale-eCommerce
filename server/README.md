@@ -5,8 +5,12 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
 1. ## User
 
-    - URL
+    - URL:
 
     <localhost:4000/register>
+
+    - Method:
+
+    @Test
 
 2. Test 2
