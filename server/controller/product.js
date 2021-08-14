@@ -10,13 +10,12 @@ const logger = log4js.getLogger('default');
 
 //CREATE NEW PROD AND SEND TO DB
 const newProduct = async (req, res) => {
-    const { name, amount, description, alcoholLevel, price, imageUrl } =
-        req.body;
+    const { name, amount, description, alcoholLevel, price, imageUrl } = req.body;
 
     try {
         const productExists = await Product.findOne({ name: name });
         if (productExists) {
-            return res.status(400).json({ error: errors.nameExists });
+            return res.status(409).json({ error: errors.nameExists });
         }
 
         if (
@@ -42,7 +41,7 @@ const newProduct = async (req, res) => {
         const currentTime = new Date();
         const newDate = date.format(currentTime, 'YYYY/MM/DD');
 
-        const paylaod = {
+        const payload = {
             name: name,
             amount: amount,
             description: description,
@@ -52,7 +51,7 @@ const newProduct = async (req, res) => {
             creationDate: newDate,
         };
 
-        const newProduct = new Product(paylaod);
+        const newProduct = new Product(payload);
         newProduct.save();
         res.status(201).json(newProduct);
     } catch (err) {
@@ -73,18 +72,36 @@ const getProducts = async (req, res) => {
 
 //UPDATE SINGLE PRODUCT FROM DB
 const updateProduct = async (req, res) => {
-    const product = req.body;
+    let product = req.body;
 
-    let selectedProd = await Product.findOne({ name: product.name });
+    // let test = req.query;
+
+    let selectedProd = await Product.findOne({ _id: product.id });
+    let existingProdName = await Product.findOne({ name: product.name });
+
+    if (existingProdName) {
+        return res.status(409).json({ error: errors.productNameExists });
+    }
+    if (!selectedProd) {
+        return res.status(409).json({ error: errors.productDoesntExist });
+    }
+
+    let payload = {
+        name: product.name,
+        amount: product.amount,
+        description: product.description,
+        alcoholLevel: product.alcoholLevel,
+        price: product.price,
+    };
 
     // Find the existing resource by finding the product ID
     Product.findByIdAndUpdate(
         selectedProd._id,
-        product,
+        payload,
         { new: true },
-        (err, product) => {
+        (err, payload) => {
             if (err) return res.status(500).send(err);
-            return res.send(product);
+            return res.send(payload);
         }
     );
 };

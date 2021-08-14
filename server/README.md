@@ -34,11 +34,14 @@ The application counts with four mayor backend operations: User, Product, Cart a
     -   ### Success Response:
 
         -   Code: 200
-        -   Content: {
-            "email": "user.email@hotmail.com",
-            "userName": "User Name",
-            "password": "1234567"
+        -   Content:
+            ```json
+            {
+                "email": "user.email@hotmail.com",
+                "userName": "User Name",
+                "password": "1234567"
             }
+            ```
 
     -   ### Error Response:
 
@@ -65,7 +68,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         <This Endpoint is very basic and it's for creating users for the website, minimal authentication as well as some security with password hashing>
 
-        //------------------------ NEXT API CALL ------------------------//
+        //------------------------------------------ NEXT API CALL ------------------------------------------//
 
     -   ### URL:
 
@@ -98,10 +101,10 @@ The application counts with four mayor backend operations: User, Product, Cart a
         -   Content:
             ```json
             {
-            "email": "user.email@hotmail.com",
-            "userName": "User Name",
-            "id": "ID automatically set by mongoDB that will be used to identify the user later on.
-            "refreshToken": "Token for logging in and being set as a cookie"
+                "email": "user.email@hotmail.com",
+                "userName": "User Name",
+                "id": "ID automatically set by mongoDB that will be used to identify the user later on",
+                "refreshToken": "Token for logging in and being set as a cookie"
             }
             ```
 
@@ -118,41 +121,170 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
 2.  ## Products
 
-    -   ### URL:
+            -   ### URL:
 
-        < http://localhost:4000/get-products >
+                < http://localhost:4000/get-products >
 
-    -   ### Method:
+            -   ### Method:
 
-        `GET`
+                `GET`
 
-    -   ### URL Params:
+            -   ### URL Params:
 
-        Required:
+                Required:
 
-        Optional:
+                Optional:
 
-    -   ### Data Params:
+            -   ### Data Params:
 
-    -   ### Success Response:
+            -   ### Success Response:
 
-        -   Code: 200
-        -   Content: [{
-            "_id": "6110751991c0a40e70ab372a",
-            "name": "TEST 3",
-            "amount": "2L",
-            "description": "Wine",
-            "alcoholLevel": "35%",
-            "price": 200,
-            }]
+                Code: 200
+                Content:
 
-    -   ### Error Response:
+                ```json
+                [{
+                    "_id": "6110751991c0a40e70ab372a",
+                    "name": "TEST 3",
+                    "amount": "2L",
+                    "description": "Wine",
+                    "alcoholLevel": "35%",
+                    "price": 200,
+                }]
+                ```
 
-        -   Code: 409
-        -   Content: {
-            "error": "No products in DB"
-            }
+            -   ### Error Response:
 
-    -   ### Notes:
+                -   Code: 409
+                -   Content: {
+                    "error": "No products in DB"
+                    }
 
-        <Basic endpoint for getting all the products in the database and sending them to frontend for filtering, etc.>
+            -   ### Notes:
+
+                <Basic endpoint for getting all the products in the database and sending them to frontend for filtering, etc.>
+
+                //------------------------------------------ NEXT API CALL ------------------------------------------//
+
+            -   ### URL:
+
+                < http://localhost:4000/new-product >
+
+            -   ### Method:
+
+                `POST`
+
+            -   ### URL Params:
+
+                Required:
+
+                Optional:
+
+            -   ### Data Params:
+
+                ```json
+                {
+                    "name": "RED WINE",
+                    "amount": "1,5L",
+                    "description": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quam tempore corporis.",
+                    "alcoholLevel": "35%",
+                    "price": 400
+                }
+                ```
+
+            -   ### Success Response:
+
+                -   Code: 200
+                -   Content:
+
+                ```json
+                     [{
+                    "_id": "6110751991c0a40e70ab372a",
+                    "name": "TEST 3",
+                    "amount": "2L",
+                    "description": "Wine",
+                    "alcoholLevel": "35%",
+                    "price": 200,
+                    }]
+                ```
+
+            -   ### Error Response:
+
+                -   Code: 409
+                -   Content: {
+                    "error": "Current name already exists"
+                    }
+
+                OR
+
+                -   Code: 409
+                -   Content: {
+                    "error": "Payload has one or more invalid properties"
+                    }
+
+            -   ### Notes:
+
+                <Basic This endpoint is used for creating a new product, payload is kept small with few properties but more could and should be added later on, such as "creation date" or "discount">
+
+                //------------------------------------------ NEXT API CALL ------------------------------------------//
+
+            -   ### URL:
+
+                < http://localhost:4000/update-product >
+
+            -   ### Method:
+
+                `PUT`
+
+            -   ### URL Params:
+
+                Required:
+
+                Optional:
+
+            -   ### Data Params:
+
+                ```json
+                    {
+                    "id": "6110751991c0a40e70ab372a",
+                    "name": "Cerveza Andina",
+                    "amount": "500Ml",
+                    "description": "Product description",
+                    "alcoholLevel": "10%",
+                    "price": 50
+                    }
+                ```
+
+            -   ### Success Response:
+
+                -   Code: 200
+                -   Content:
+
+                ```json
+                 [{
+                    "_id": "6110751991c0a40e70ab372a",
+                    "name": "TEST 3",
+                    "amount": "2L",
+                    "description": "Wine",
+                    "alcoholLevel": "35%",
+                    "price": 200,
+                    }]
+                ```
+
+            -   ### Error Response:
+
+                -   Code: 409
+                -   Content: {
+                    "error": "Product name already exists in DB"
+                    }
+
+                OR
+
+                -   Code: 409
+                -   Content: {
+                    "error": "A product with that name does not exist"
+                    }
+
+            -   ### Notes:
+
+                < Endpoint used for updating products in DB, takes in the id of the product, send from the frondend, as well as a the new body for the product, then saves it in case the new values don't generate a conflict with previous products >
