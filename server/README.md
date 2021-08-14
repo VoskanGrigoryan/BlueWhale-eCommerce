@@ -110,3 +110,63 @@ The application counts with four mayor backend operations: User, Product, Cart a
         <This endpoint is for logging in and it will try to find a user with the given credentials, if it doesn't it will let the user know that either the credentials are wrong, or that he needs to register first>
 
 2. ## Products
+
+    - ### URL:
+
+        < http://localhost:4000/get-products >
+
+    - ### Method:
+
+        `GET`
+
+    - ### URL Params:
+
+        Required:
+
+        Optional:
+
+    - ### Data Params:
+
+        ```json
+        {
+            "email": "user.email@hotmail.com",
+            "userName": "User Name",
+            "password": "1234567"
+        }
+        ```
+
+        email has veritifaction process, if not a real email or if it already exists in the DB, it will throw an error, also password will have to be at least 6-7 characters long.
+
+    - ### Success Response:
+
+        - Code: 200
+        - Content: {
+          "email": "user.email@hotmail.com",
+          "userName": "User Name",
+          "password": "1234567"
+          }
+
+    - ### Error Response:
+
+        - Code: 409
+        - Content: {
+          "error": "The provided email is not valid"
+          }
+
+        OR
+
+        - Code: 409
+        - Content: {
+          "error": "Current email already exists"
+          }
+
+        OR
+
+        - Code: 409
+        - Content: {
+          "error": "Current password is not valid"
+          }
+
+    - ### Notes:
+
+        <This Endpoint is very basic and it's for creating users for the website, minimal authentication as well as some security with password hashing>
