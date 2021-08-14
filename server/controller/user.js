@@ -28,15 +28,18 @@ const Transporter = nodemailer.createTransport({
 const registerUser = async (req, res) => {
     const userData = req.body;
     const { email, userName, password } = userData;
+    const payload = {};
 
     const emailExists = await User.findOne({ email: email });
     if (emailExists) {
-        return res.status(400).json({ error: errors.emailExists });
+        payload.error = errors.emailExists;
+        return res.status(400).json(payload);
     }
 
     if (password == null || password == undefined || password.length < 5) {
         logger.error(errors.passwordInvalid);
-        return res.status(409).json({ error: errors.passwordInvalid });
+        payload.error = errors.passwordInvalid;
+        return res.status(409).json(payload);
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -56,9 +59,8 @@ const registerUser = async (req, res) => {
             <img src="cid:unique@kreata.ee" width="1052" height="400"/>
             <h3>Hello ${userName}! This email was sent in order to notify you that an account was
             created for the online store <h2>BlueWhale™</h2> using the following email: ${email}
-            If you did not create an account in this website please reach out to our support team. <br />
-            <hr />Regards, BlueWhale Development Team
-            </h3>`,
+            If you did not create an account in this website please reach out to our support team.</h3>
+            <h3>Regards, BlueWhale Development Team</h3>`,
             attachments: [
                 {
                     filename: 'bwCover.png',
@@ -77,7 +79,11 @@ const registerUser = async (req, res) => {
             logger.info('Register notification email sent to user 👌');
         });
 
-        res.status(200).json(userData);
+        payload.email = email;
+        payload.userName = userName;
+        payload.password = password;
+
+        res.status(200).json(payload);
     } catch (err) {
         res.status(400).json({ err });
     }
@@ -115,7 +121,7 @@ const loginUser = async (req, res) => {
     // );
 
     try {
-        let payload = {
+        const payload = {
             email: email,
             userName: user.userName,
             id: user._id,
