@@ -16,6 +16,7 @@ const errors = {
     userIDInvalid: 'User ID is not valid',
     currentParamsNotValid: 'Provided params are not valid',
     orderDoesntExist: 'Order does not exist',
+    emailNotValid: 'The provided email is not valid',
 };
 
 const alerts = {

@@ -28,12 +28,29 @@ const Transporter = nodemailer.createTransport({
 const registerUser = async (req, res) => {
     const userData = req.body;
     const { email, userName, password } = userData;
-    const payload = {};
-
     const emailExists = await User.findOne({ email: email });
+    const payload = {};
+    let val = 0;
+
+    const validateEmail = (email) => {
+        let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+        if (email.match(regexEmail)) {
+            return val++;
+        } else {
+            return val--;
+        }
+    };
+
+    validateEmail(email);
+
+    if (val === -1) {
+        payload.error = errors.emailNotValid;
+        return res.status(409).json(payload);
+    }
+
     if (emailExists) {
         payload.error = errors.emailExists;
-        return res.status(400).json(payload);
+        return res.status(409).json(payload);
     }
 
     if (password == null || password == undefined || password.length < 5) {
