@@ -92,19 +92,19 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         Registered email is provided as well as the password previously set, the function will find the user in the database and get his information, else it will just throw an error saying that the user doesn't exist yet.
 
-        ```
-
-        ```
-
     -   ### Success Response:
 
         -   Code: 200
-        -   Content: {
+        -   Content: ```json
+            {
             "email": "user.email@hotmail.com",
             "userName": "User Name",
             "id": "ID automatically set by mongoDB that will be used to identify the user later on.
             "refreshToken": "Token for logging in and being set as a cookie"
             }
+            ```
+
+            ```
 
     -   ### Error Response:
 
