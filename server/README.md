@@ -7,7 +7,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     - ### URL:
 
-        <localhost:4000/register>
+        < localhost:4000/register >
 
     - ### Method:
 
@@ -63,11 +63,11 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         <This Endpoint is very basic and it's for creating users for the website, minimal authentication as well as some security with password hashing>
 
-        //------ NEXT API CALL ------//
+        //------------------------ NEXT API CALL ------------------------//
 
     - ### URL:
 
-        <localhost:4000/login>
+        < localhost:4000/login >
 
     - ### Method:
 
@@ -86,7 +86,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
         "password": "1234567"
         }
 
-    Registered email is provided as well as the password previously set, the function will find the user in the database and get his information, else it will just throw an error saying that the user doesn't exist yet.
+        Registered email is provided as well as the password previously set, the function will find the user in the database and get his information, else it will just throw an error saying that the user doesn't exist yet.
 
     - ### Success Response:
 
