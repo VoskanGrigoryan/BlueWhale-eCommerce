@@ -68,7 +68,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         <This Endpoint is very basic and it's for creating users for the website, minimal authentication as well as some security with password hashing>
 
-        //---------------------------------------------- NEXT API CALL ----------------------------------------------//
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
 
     -   ### URL:
 
@@ -166,7 +166,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         <Basic endpoint for getting all the products in the database and sending them to frontend for filtering, etc.>
 
-        //---------------------------------------------- NEXT API CALL ----------------------------------------------//
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
 
     -   ### URL:
 
@@ -230,7 +230,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         <Basic This endpoint is used for creating a new product, payload is kept small with few properties but more could and should be added later on, such as "creation date" or "discount">
 
-        //------------------------------------------------------- NEXT API CALL ---------------------------------------------------------//
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
 
     -   ### URL:
 
