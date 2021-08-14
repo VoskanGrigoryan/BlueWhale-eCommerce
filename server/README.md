@@ -95,15 +95,14 @@ The application counts with four mayor backend operations: User, Product, Cart a
     -   ### Success Response:
 
         -   Code: 200
-        -   Content: ```json
+        -   Content:
+            ```json
             {
             "email": "user.email@hotmail.com",
             "userName": "User Name",
             "id": "ID automatically set by mongoDB that will be used to identify the user later on.
             "refreshToken": "Token for logging in and being set as a cookie"
             }
-            ```
-
             ```
 
     -   ### Error Response:
