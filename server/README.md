@@ -7,7 +7,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     -   ### URL:
 
-        < localhost:4000/register >
+        _localhost:4000/register_
 
     -   ### Method:
 
@@ -66,13 +66,13 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     -   ### Notes:
 
-        <This Endpoint is very basic and it's for creating users for the website, minimal authentication as well as some security with password hashing>
+        _This Endpoint is very basic and it's for creating users for the website, minimal authentication as well as some security with password hashing_
 
         //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
 
     -   ### URL:
 
-        < localhost:4000/login >
+        _localhost:4000/login_
 
     -   ### Method:
 
@@ -117,13 +117,13 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     -   ### Notes:
 
-        <This endpoint is for logging in and it will try to find a user with the given credentials, if it doesn't it will let the user know that either the credentials are wrong, or that he needs to register first>
+        _This endpoint is for logging in and it will try to find a user with the given credentials, if it doesn't it will let the user know that either the credentials are wrong, or that he needs to register first_
 
 2.  ## Products
 
     -   ### URL:
 
-        < http://localhost:4000/get-products >
+        _http://localhost:4000/get-products_
 
     -   ### Method:
 
@@ -164,13 +164,13 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     -   ### Notes:
 
-        <Basic endpoint for getting all the products in the database and sending them to frontend for filtering, etc.>
+        _Basic endpoint for getting all the products in the database and sending them to frontend for filtering, etc._
 
         //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
 
     -   ### URL:
 
-        < http://localhost:4000/new-product >
+        _http://localhost:4000/new-product_
 
     -   ### Method:
 
@@ -228,13 +228,13 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     -   ### Notes:
 
-        <Basic This endpoint is used for creating a new product, payload is kept small with few properties but more could and should be added later on, such as "creation date" or "discount">
+        _Basic This endpoint is used for creating a new product, payload is kept small with few properties but more could and should be added later on, such as "creation date" or "discount"_
 
         //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
 
     -   ### URL:
 
-        < http://localhost:4000/update-product >
+        _http://localhost:4000/update-product_
 
     -   ### Method:
 
@@ -265,16 +265,14 @@ The application counts with four mayor backend operations: User, Product, Cart a
         -   Content:
 
         ```json
-        [
-            {
-                "_id": "6110751991c0a40e70ab372a",
-                "name": "TEST 3",
-                "amount": "2L",
-                "description": "Wine",
-                "alcoholLevel": "35%",
-                "price": 200
-            }
-        ]
+        {
+            "id": "6110751991c0a40e70ab372a",
+            "name": "Cerveza Andina",
+            "amount": "500Ml",
+            "description": "Product description",
+            "alcoholLevel": "10%",
+            "price": 50
+        }
         ```
 
     -   ### Error Response:
@@ -293,4 +291,186 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     -   ### Notes:
 
-        < Endpoint used for updating products in DB, takes in the id of the product, send from the frondend, as well as a the new body for the product, then saves it in case the new values don't generate a conflict with previous products >
+        _Endpoint used for updating products in DB, takes in the id of the product, send from the frondend, as well as a the new body for the product, then saves it in case the new values don't generate a conflict with previous products_
+
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
+
+    -   ### URL:
+
+        _http://localhost:4000/delete-product_
+
+    -   ### Method:
+
+        `DELETE`
+
+    -   ### URL Params:
+
+        Required: **?productId=6110751991c0a40e70ab372a**
+
+        Optional:
+
+    -   ### Data Params:
+
+        ```json
+        {
+            "id": "6110751991c0a40e70ab372a",
+            "name": "Cerveza Andina",
+            "amount": "500Ml",
+            "description": "Product description",
+            "alcoholLevel": "10%",
+            "price": 50
+        }
+        ```
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content:
+
+        ```json
+        {
+            "message": "Product deleted succesfully!",
+            "id": "6110751991c0a40e70ab372a"
+        }
+        ```
+
+    -   ### Error Response:
+
+        -   Code: 409
+        -   Content: {
+            "error":"A product with that name does not exist"
+            }
+
+    -   ### Notes:
+
+        _Endpoint used for deleting products by their ID, this works only individually, meaninig only one product at a time_
+
+3.  ## Cart
+
+    -   ### URL:
+
+        _http://localhost:4000/carts_
+
+    -   ### Method:
+
+        `GET`
+
+    -   ### URL Params:
+
+        Required:
+
+        Optional:
+
+    -   ### Data Params:
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content:
+            ```json
+            [
+                {
+                    "products": [
+                        {
+                            "prodID": "123",
+                            "name": "vino",
+                            "amount": 2,
+                            "description": "Vino importado de mendoza",
+                            "alcoholLevel": "35%",
+                            "price": 300
+                        },
+                        {
+                            "prodID": "456",
+                            "name": "birra",
+                            "amount": 6,
+                            "description": "Cerveza en lata",
+                            "alcoholLevel": "15%",
+                            "price": 180
+                        }
+                    ],
+                    "_id": "611614182cf107193875768e",
+                    "userID": "611205aa761122451ce08786",
+                    "active": true,
+                    "creationDate": "2021/08/13 03:41:28",
+                    "__v": 0
+                }
+            ]
+            ```
+
+    -   ### Error Response:
+
+        -   Code: 409
+        -   Content: {
+            "error": "Cart doesn't exist"
+            }
+
+    -   ### Notes:
+
+        _This Endpoint is very basic and it's for getting all the carts, this endpoint is just for testing and should not be used in the application_
+
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
+
+    -   ### URL:
+
+        _localhost:4000/create-cart_
+
+    -   ### Method:
+
+        `POST`
+
+    -   ### URL Params:
+
+        Required:
+
+        Optional:
+
+    -   ### Data Params:
+
+        ```json
+        {
+            "userEmail": "voskan.grigoryan.arg@gmail.com",
+            "active": true,
+            "products": [
+                {
+                    "prodID": "123",
+                    "name": "vino",
+                    "amount": 2,
+                    "description": "Vino importado de mendoza",
+                    "alcoholLevel": "35%",
+                    "price": 300
+                },
+                {
+                    "prodID": "456",
+                    "name": "birra",
+                    "amount": 6,
+                    "description": "Cerveza en lata",
+                    "alcoholLevel": "15%",
+                    "price": 180
+                }
+            ]
+        }
+        ```
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content:
+            ```json
+            {
+                "userID": "611201aa0a4d420be4772438",
+                "active": true,
+                "products": [],
+                "creationDate": "2021/08/14 15:57:49"
+            }
+            ```
+
+    -   ### Error Response:
+
+        -   Code: 409
+        -   Content: {
+            "error": "Cart already exists for this user"
+            }
+
+    -   ### Notes:
+
+        _This endpoint creates the cart for each user, this url would be called once, for each user that gets created, for this example it already has two items in the "products" array, but by default it should come empty, and each item would be uploaded with the next url, which is the add-item url_

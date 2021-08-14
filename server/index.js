@@ -62,6 +62,7 @@ try {
         .then(() => {
             app.listen(PORT, logger.info(`Running on port ${PORT}`));
         });
+    mongoose.set('useFindAndModify', false);
 } catch (error) {
     logger.error(err);
 }

@@ -74,8 +74,6 @@ const getProducts = async (req, res) => {
 const updateProduct = async (req, res) => {
     let product = req.body;
 
-    // let test = req.query;
-
     let selectedProd = await Product.findOne({ _id: product.id });
     let existingProdName = await Product.findOne({ name: product.name });
 
@@ -108,21 +106,25 @@ const updateProduct = async (req, res) => {
 
 //DELETE SINGLE PRODUCT FROM DB
 const deleteProduct = async (req, res) => {
-    // let test = req.query;
-    let selectedProd = await Product.findOne({ name: req.body.name });
+    let productById = req.query.productId;
+    let selectedProd = await Product.findOne({ _id: productById });
 
     if (!selectedProd) {
         return res.status(404).json({ error: errors.productDoesntExist });
     }
 
-    Product.findByIdAndRemove(selectedProd._id, (err, selectedProd) => {
-        if (err) return res.status(500).send(err);
-        const response = {
-            message: 'Product deleted succesfully!',
-            id: selectedProd._id,
-        };
-        return res.status(200).send(response);
-    });
+    try {
+        Product.findByIdAndRemove(selectedProd._id, (err, selectedProd) => {
+            if (err) return res.status(500).send(err);
+            const response = {
+                message: 'Product deleted succesfully!',
+                id: selectedProd._id,
+            };
+            return res.status(200).send(response);
+        });
+    } catch (err) {
+        return res.status(409).json({ error: err });
+    }
 };
 
 export { newProduct, getProducts, updateProduct, deleteProduct };

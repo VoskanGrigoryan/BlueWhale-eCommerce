@@ -52,20 +52,14 @@ const addItem = async (req, res) => {
     };
 
     //useFindAndModify maybe a better approach? No time to test, findById works but might become deprecated
-    Cart.findByIdAndUpdate(
-        cartExists._id,
-        payload,
-        { new: true },
-        (err, payload) => {
-            if (err) return res.status(500).send(err);
-            return res.send(payload);
-        }
-    );
+    Cart.findByIdAndUpdate(cartExists._id, payload, { new: true }, (err, payload) => {
+        if (err) return res.status(500).send(err);
+        return res.send(payload);
+    });
 };
 
 const deleteItem = async (req, res) => {
     // Options with query params to long for cart option
-    // const productId = req.query.productId;
 
     const { cartID, userID, productID } = req.body;
 
