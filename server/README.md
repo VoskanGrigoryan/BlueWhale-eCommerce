@@ -3,7 +3,7 @@
 This file is for identifying and explainig all the API calls within the application.
 The application counts with four mayor backend operations: User, Product, Cart and Order.
 
-1.  ## User
+## 1. User
 
     -   ### URL:
 
@@ -61,7 +61,52 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
     -   ### Notes:
 
-        [Test]
         <This Endpoint is very basic and it's for creating users for the website, minimal authentication as well as some security with password hashing>
 
-2.  Test 2
+    |--------------------------------------------------------------------------------------------------------------|
+
+    -   ### URL:
+
+        <localhost:4000/login>
+
+    -   ### Method:
+
+        `POST`
+
+    -   ### URL Params:
+
+        Required:
+
+        Optional:
+
+    -   ### Data Params:
+
+        {
+        "email": "user.email@hotmail.com",
+        "password": "1234567"
+        }
+
+       Registered email is provided as well as the password previously set, the function will find the user in the database and get his information, else it will just throw an error saying that the user doesn't exist yet.
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content: {
+            "email": "user.email@hotmail.com",
+            "userName": "User Name",
+            "id": "ID automatically set by mongoDB that will be used to identify the user later on.
+            "refreshToken": "Token for logging in and being set as a cookie"
+            }
+
+    -   ### Error Response:
+
+        -   Code: 404
+        -   Content: {
+            "error": "There is not a user registered with the given credentials"
+            }
+
+    -   ### Notes:
+
+        <This endpoint is for logging in and it will try to find a user with the given credentials, if it doesn't it will let the user know that either the credentials are wrong, or that he needs to register first>
+
+## 2. Products

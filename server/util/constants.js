@@ -17,6 +17,7 @@ const errors = {
     currentParamsNotValid: 'Provided params are not valid',
     orderDoesntExist: 'Order does not exist',
     emailNotValid: 'The provided email is not valid',
+    userDoesNotExist: 'There is not a user registered with the given credentials',
 };
 
 const alerts = {

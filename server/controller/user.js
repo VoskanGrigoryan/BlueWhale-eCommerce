@@ -124,7 +124,7 @@ const loginUser = async (req, res) => {
     const validPassword = await bcrypt.compareSync(password, userPassword);
 
     if (!validPassword) {
-        res.status(409).json({ error: 'Contraseña no valida' });
+        res.status(409).json({ error: errors.userDoesNotExist });
         logger.error(errors.passwordInvalid);
         return;
     }
