@@ -16,7 +16,7 @@ const errors = {
     noCartsInDB: 'No shopping carts in DB',
     userIDInvalid: 'User ID is not valid',
     currentParamsNotValid: 'Provided params are not valid',
-    orderDoesntExist: 'Order does not exist',
+    orderDoesntExist: 'Order does not exist with this ID',
     emailNotValid: 'The provided email is not valid',
     userDoesNotExist: 'There is not a user registered with the given credentials',
 };

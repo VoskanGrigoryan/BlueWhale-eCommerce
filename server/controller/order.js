@@ -61,9 +61,6 @@ const createOrder = async (req, res) => {
         });
     }
 
-    //Random Number generator for order ID
-    // const orderID = Math.floor(100000 + Math.random() * 900000000000000);
-
     //Could add option for order finished/in progress
     //So that I can store finished orders in the same collection
     (payload.userID = userID),
@@ -167,7 +164,7 @@ const confirmOrder = async (req, res) => {
     });
 
     payload.alert =
-        "CONGRATS YOU CONFIRMED YOUR PRODUCT, YOU'LL BE RECEIVING IT IN THE NEXT 4-5 BUSINESS DAYS!";
+        "YOU CONFIRMED YOUR PRODUCT, YOU'LL BE RECEIVING IT IN THE NEXT 4-5 BUSINESS DAYS!";
 
     res.status(200).send(payload);
 };

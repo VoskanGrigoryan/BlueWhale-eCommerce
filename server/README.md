@@ -119,6 +119,58 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         _This endpoint is for logging in and it will try to find a user with the given credentials, if it doesn't it will let the user know that either the credentials are wrong, or that he needs to register first_
 
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
+
+        -   ### URL:
+
+        _localhost:4000/users_
+
+    -   ### Method:
+
+        `GET`
+
+    -   ### URL Params:
+
+        Required:
+
+        Optional:
+
+    -   ### Data Params:
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content:
+            ```json
+            [
+                {
+                    "_id": "611201aa0a4d420be4772438",
+                    "email": "hugosajama07@gmail.com",
+                    "userName": "Hugo",
+                    "password": "$2b$10$w1BkKBX3o1JoExm9bl/O6e8rl8iT9W.zxEvn9qEzTGmDM7EBzmGnC",
+                    "__v": 0
+                },
+                {
+                    "_id": "611205aa761122451ce08786",
+                    "email": "voskan.grigoryan.arg@gmail.com",
+                    "userName": "123123",
+                    "password": "$2b$10$aPhwEW.UHYOPgOa1qEMfuusKcKyWZEVj0bwCnEazkglgjfUypFFei",
+                    "__v": 0
+                }
+            ]
+            ```
+
+    -   ### Error Response:
+
+        -   Code: 409
+        -   Content: {
+            "error": "Currently no users in DB"
+            }
+
+    -   ### Notes:
+
+        _Basic endpoint for testing, it gets all the users in the DB, without any filtering. This is just for testing and should not be used in the actual application._
+
 2.  ## Products
 
     -   ### URL:
@@ -504,32 +556,32 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         -   Code: 200
         -   Content:
+
             ```json
             {
             "products": [
-            {
-            "prodID": "123",
-            "name": "vino",
-            "amount": 2,
-            "description": "Vino importado de mendoza",
-            "alcoholLevel": "35%",
-            "price": 300
-            },
-            {
-            "prodID": "456",
-            "name": "birra",
-            "amount": 6,
-            "description": "Cerveza en lata",
-            "alcoholLevel": "15%",
-            "price": 180
-            },
-            {
-            ],
-            "_id": "611614182cf107193875768e",
-            "userID": "611205aa761122451ce08786",
-            "active": true,
-            "creationDate": "2021/08/13 03:41:28",
-            "__v": 0
+                {
+                "prodID": "123",
+                "name": "vino",
+                "amount": 2,
+                "description": "Vino importado de mendoza",
+                "alcoholLevel": "35%",
+                "price": 300
+                },
+                {
+                "prodID": "456",
+                "name": "birra",
+                "amount": 6,
+                "description": "Cerveza en lata",
+                "alcoholLevel": "15%",
+                "price": 180
+                },
+            ], {
+                "_id": "611614182cf107193875768e",
+                "userID": "611205aa761122451ce08786",
+                "active": true,
+                "creationDate": "2021/08/13 03:41:28",
+                "__v": 0
             }
             ```
 
@@ -619,3 +671,170 @@ The application counts with four mayor backend operations: User, Product, Cart a
     -   ### Notes:
 
         _This endpoint deletes an item at a time from the "Products" array, it takes in the "userID", the "cartID" and the ID of the product that you want to delete_
+
+4.  ## Order
+
+    -   ### URL:
+
+        _http://localhost:4000/create-order_
+
+    -   ### Method:
+
+        `POST`
+
+    -   ### URL Params:
+
+        Required:
+
+        Optional:
+
+    -   ### Data Params:
+
+        ```json
+        {
+            "userID": "611205aa761122451ce08786",
+            "cart": {
+                "products": [
+                    {
+                        "prodID": "123",
+                        "name": "vino",
+                        "amount": 2,
+                        "description": "Vino importado de mendoza",
+                        "alcoholLevel": "35%",
+                        "price": 300
+                    },
+                    {
+                        "prodID": "456",
+                        "name": "birra",
+                        "amount": 6,
+                        "description": "Cerveza en lata",
+                        "alcoholLevel": "15%",
+                        "price": 180
+                    }
+                ],
+                "_id": "61146aaba04b4a18b0cdb6e3",
+                "userID": "611205aa761122451ce08786",
+                "active": true,
+                "creationDate": "2021/08/11 21:26:19",
+                "__v": 0
+            },
+            "orderTime": "2021/08/11",
+            "arrivalTime": "2021/08/13",
+            "deliveryCost": 40
+        }
+        ```
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content:
+            ```json
+            {
+                "userID": "611205aa761122451ce08786",
+                "cart": [
+                    {
+                        "prodID": "123",
+                        "name": "vino",
+                        "amount": 2,
+                        "description": "Vino importado de mendoza",
+                        "alcoholLevel": "35%",
+                        "price": 300
+                    },
+                    {
+                        "prodID": "456",
+                        "name": "birra",
+                        "amount": 6,
+                        "description": "Cerveza en lata",
+                        "alcoholLevel": "15%",
+                        "price": 180
+                    }
+                ],
+                "orderTime": "2021/08/11",
+                "arrivalTime": "2021/08/13",
+                "deliveryCost": 40
+            }
+            ```
+
+    -   ### Error Response:
+
+        -   Code: 409
+        -   Content: {
+            "error": "User ID is not valid"
+            }
+
+        OR
+
+        -   Code: 409
+        -   Content: {
+            "error": "No products in shopping cart"
+            }
+
+        OR
+
+        -   Code: 409
+        -   Content: {
+            "error": "No valid order time"
+            }
+
+        OR
+
+        -   Code: 409
+        -   Content: {
+            "error": "No valid arrival time"
+            }
+
+        OR
+
+        -   Code: 409
+        -   Content: {
+            "error": "Delivery cost value is not valid"
+            }
+
+    -   ### Notes:
+
+        _This endpoint creates the payload taking the userID, which later is used to get the user data, the products within the cart that belongs to the user in question, as well as generic data like arrival time and delivery cost._
+
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
+
+        -   ### URL:
+
+        _http://localhost:4000/create-order_
+
+    -   ### Method:
+
+        `POST`
+
+    -   ### URL Params:
+
+        Required:
+
+        Optional:
+
+    -   ### Data Params:
+
+        ```json
+        {
+            "userID": "611205aa761122451ce08786"
+        }
+        ```
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content:
+            ```json
+            {
+                "alert": "CONGRATS YOU CONFIRMED YOUR PRODUCT, YOU'LL BE RECEIVING IT IN THE NEXT 4-5 BUSINESS DAYS!"
+            }
+            ```
+
+    -   ### Error Response:
+
+        -   Code: 409
+        -   Content: {
+            "error": "Order does not exist with this ID"
+            }
+
+    -   ### Notes:
+
+        _This endpoint only takes in the userID in order to find the order it belongs to, confirms the purchase, and then sends an email to the user notifying them and showing the products they bought._
