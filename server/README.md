@@ -230,7 +230,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         <Basic This endpoint is used for creating a new product, payload is kept small with few properties but more could and should be added later on, such as "creation date" or "discount">
 
-        //---------------------------------------------- NEXT API CALL ----------------------------------------------//
+        //------------------------------------------------------- NEXT API CALL ---------------------------------------------------------//
 
     -   ### URL:
 
