@@ -182,7 +182,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
             -   ### Data Params:
 
-                ```json
+
                 {
                     "name": "RED WINE",
                     "amount": "1,5L",
@@ -190,14 +190,13 @@ The application counts with four mayor backend operations: User, Product, Cart a
                     "alcoholLevel": "35%",
                     "price": 400
                 }
-                ```
+
 
             -   ### Success Response:
 
                 -   Code: 200
                 -   Content:
 
-                ```json
                      [{
                     "_id": "6110751991c0a40e70ab372a",
                     "name": "TEST 3",
@@ -206,7 +205,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
                     "alcoholLevel": "35%",
                     "price": 200,
                     }]
-                ```
+
 
             -   ### Error Response:
 
@@ -244,7 +243,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
             -   ### Data Params:
 
-                ```json
+
                     {
                     "id": "6110751991c0a40e70ab372a",
                     "name": "Cerveza Andina",
@@ -253,14 +252,14 @@ The application counts with four mayor backend operations: User, Product, Cart a
                     "alcoholLevel": "10%",
                     "price": 50
                     }
-                ```
+
 
             -   ### Success Response:
 
                 -   Code: 200
                 -   Content:
 
-                ```json
+
                  [{
                     "_id": "6110751991c0a40e70ab372a",
                     "name": "TEST 3",
@@ -269,7 +268,7 @@ The application counts with four mayor backend operations: User, Product, Cart a
                     "alcoholLevel": "35%",
                     "price": 200,
                     }]
-                ```
+
 
             -   ### Error Response:
 
