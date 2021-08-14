@@ -430,6 +430,55 @@ The application counts with four mayor backend operations: User, Product, Cart a
         {
             "userEmail": "voskan.grigoryan.arg@gmail.com",
             "active": true,
+            "products": []
+        }
+        ```
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content:
+            ```json
+            {
+                "userID": "611201aa0a4d420be4772438",
+                "active": true,
+                "products": [],
+                "creationDate": "2021/08/14 15:57:49"
+            }
+            ```
+
+    -   ### Error Response:
+
+        -   Code: 409
+        -   Content: {
+            "error": "Cart already exists for this user"
+            }
+
+    -   ### Notes:
+
+        _This endpoint creates the cart for each user, this url would be called once, for each user that gets created, for this example it already has two items in the "products" array, but by default it should come empty, and each item would be uploaded with the next url, which is the add-item url_
+
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
+
+    -   ### URL:
+
+        _localhost:4000/add-item_
+
+    -   ### Method:
+
+        `POST`
+
+    -   ### URL Params:
+
+        Required:
+
+        Optional:
+
+    -   ### Data Params:
+
+        ```json
+        {
+            "userEmail": "voskan.grigoryan.arg@gmail.com",
             "products": [
                 {
                     "prodID": "123",
@@ -457,10 +506,30 @@ The application counts with four mayor backend operations: User, Product, Cart a
         -   Content:
             ```json
             {
-                "userID": "611201aa0a4d420be4772438",
-                "active": true,
-                "products": [],
-                "creationDate": "2021/08/14 15:57:49"
+            "products": [
+            {
+            "prodID": "123",
+            "name": "vino",
+            "amount": 2,
+            "description": "Vino importado de mendoza",
+            "alcoholLevel": "35%",
+            "price": 300
+            },
+            {
+            "prodID": "456",
+            "name": "birra",
+            "amount": 6,
+            "description": "Cerveza en lata",
+            "alcoholLevel": "15%",
+            "price": 180
+            },
+            {
+            ],
+            "_id": "611614182cf107193875768e",
+            "userID": "611205aa761122451ce08786",
+            "active": true,
+            "creationDate": "2021/08/13 03:41:28",
+            "__v": 0
             }
             ```
 
@@ -468,9 +537,85 @@ The application counts with four mayor backend operations: User, Product, Cart a
 
         -   Code: 409
         -   Content: {
-            "error": "Cart already exists for this user"
+            "error": "Cart doesn't exist or can't be found with the given data"
             }
 
     -   ### Notes:
 
-        _This endpoint creates the cart for each user, this url would be called once, for each user that gets created, for this example it already has two items in the "products" array, but by default it should come empty, and each item would be uploaded with the next url, which is the add-item url_
+        _This endpoint adds items to the "Products" array, it can store multiple ones or a singular object_
+
+        //----------------------------------------------------------- NEXT API CALL -------------------------------------------------------------//
+
+    -   ### URL:
+
+        _localhost:4000/delete-item_
+
+    -   ### Method:
+
+        `POST`
+
+    -   ### URL Params:
+
+        Required:
+
+        Optional:
+
+    -   ### Data Params:
+
+        ```json
+        {
+            "cartID": "61146aaba04b4a18b0cdb6e3",
+            "userID": "611205aa761122451ce08786",
+            "productID": "123"
+        }
+        ```
+
+    -   ### Success Response:
+
+        -   Code: 200
+        -   Content:
+            ```json
+            {
+                "products": [
+                    {
+                        "prodID": "456",
+                        "name": "birra",
+                        "amount": 6,
+                        "description": "Cerveza en lata",
+                        "alcoholLevel": "15%",
+                        "price": 180
+                    },
+                    {
+                        "prodID": "456",
+                        "name": "birra",
+                        "amount": 6,
+                        "description": "Cerveza en lata",
+                        "alcoholLevel": "15%",
+                        "price": 180
+                    }
+                ],
+                "_id": "611614182cf107193875768e",
+                "userID": "611205aa761122451ce08786",
+                "active": true,
+                "creationDate": "2021/08/13 03:41:28",
+                "__v": 0
+            }
+            ```
+
+    -   ### Error Response:
+
+        -   Code: 409
+        -   Content: {
+            "error": "Provided params are not valid"
+            }
+
+        OR
+
+        -   Code: 409
+        -   Content: {
+            "error": "Can't find cart by the provided ID"
+            }
+
+    -   ### Notes:
+
+        _This endpoint deletes an item at a time from the "Products" array, it takes in the "userID", the "cartID" and the ID of the product that you want to delete_

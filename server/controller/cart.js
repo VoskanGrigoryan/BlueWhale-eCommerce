@@ -77,11 +77,11 @@ const deleteItem = async (req, res) => {
     if (arrItems.length > 0) {
         // const item = arrItems.find((item) => item.prodID === productID);
 
-        let test1 = arrItems.findIndex((item) => {
+        let findItem = arrItems.findIndex((item) => {
             return item.prodID === productID;
         });
 
-        if (test1 !== -1) arrItems.splice(test1, 1);
+        if (findItem !== -1) arrItems.splice(findItem, 1);
     }
 
     const payload = {

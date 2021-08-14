@@ -6,7 +6,7 @@ const errors = {
     passwordInvalid: 'Current password is not valid',
     payloadInvalid: 'Payload has one or more invalid properties',
     cartExists: 'Cart already exists for this user',
-    cartDoesntExist: "Cart doesn't exist",
+    cartDoesntExist: "Cart doesn't exist or can't be found with the given data",
     cantCartFindById: "Can't find cart by the provided ID",
     productNameExists: 'Product name already exists in DB',
     noProductsInCart: 'No products in shopping cart',
