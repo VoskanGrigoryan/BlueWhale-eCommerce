@@ -1,34 +1,14 @@
 import React, { useState } from 'react';
-import {
-    makeStyles,
-    AppBar,
-    Toolbar,
-    Typography,
-    Button,
-    IconButton,
-} from '@material-ui/core';
-import { ShoppingCart } from '@material-ui/icons';
+import { Menu } from 'antd';
+import { Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
-import LoginDialog from './auth/LoginDialog';
-import logo from '../../assets/images/longLogo.png';
 import UserWizard from './auth/UserWizard';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        flexGrow: 1,
-    },
-    menuButton: {
-        marginRight: theme.spacing(2),
-    },
-    title: {
-        flexGrow: 1,
-    },
-}));
+const { SubMenu } = Menu;
 
 const Navbar = () => {
-    const classes = useStyles();
-
     const [open, setOpen] = useState(false);
+    const [navValue, setNavValue] = useState('');
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -38,43 +18,58 @@ const Navbar = () => {
         setOpen(false);
     };
 
-    return (
-        <div className={classes.root}>
-            <AppBar position="absolute" style={{ height: '70px' }}>
-                <Toolbar>
-                    <Typography variant="h4" className={classes.title}>
-                        <Link to="/home-page" className="links">
-                            <img
-                                src={logo}
-                                style={{ height: '65px', paddingTop: '4px' }}
-                                alt="logo"
-                            />
-                        </Link>
-                    </Typography>
-                    <Link
-                        to="/cart"
-                        style={{
-                            textDecoration: 'none',
-                            color: '#ffffff',
-                        }}
-                    >
-                        <IconButton
-                            edge="end"
-                            className={classes.menuButton}
-                            color="inherit"
-                            font="big"
-                        >
-                            <ShoppingCart />
-                        </IconButton>
-                    </Link>
-                    <Button color="inherit" onClick={handleClickOpen}>
-                        Login
-                    </Button>
-                </Toolbar>
+    const handleClick = (e) => {
+        setNavValue(e.key);
+    };
 
-                <UserWizard open={open} handleClose={handleClose} />
-            </AppBar>
-        </div>
+    return (
+        <Menu
+            onClick={handleClick}
+            selectedKeys={[navValue]}
+            mode="horizontal"
+            className="d-flex justify-content-center shadow-sm w-100 position-fixed"
+        >
+            <SubMenu key="products" title="Products">
+                <Menu.ItemGroup title="Choose:">
+                    <Menu.Item key="subcat-store">
+                        <Link to="/store">Drinks</Link>
+                    </Menu.Item>
+
+                    <Menu.Item key="subcat-store-cocktails">
+                        <Tooltip title="Not yet implemented.." placement="right">
+                            <Link to="/store">Cocktails</Link>
+                        </Tooltip>
+                    </Menu.Item>
+
+                    <Menu.Item key="subcat-store-wine">
+                        <Tooltip title="Not yet implemented.." placement="right">
+                            Wines
+                        </Tooltip>
+                    </Menu.Item>
+                </Menu.ItemGroup>
+            </SubMenu>
+
+            <Menu.Item key="cart">
+                <Link to="/shopping-cart">Shopping Cart</Link>
+            </Menu.Item>
+
+            <Menu.Item key="settings">
+                <Tooltip title="Not yet implemented.." placement="bottom">
+                    Settings
+                </Tooltip>
+            </Menu.Item>
+            <Menu.Item key="user">
+                <Tooltip title="Login in order to buy stuff!" placement="bottom">
+                    <Link onClick={handleClickOpen}>User</Link>
+                </Tooltip>
+            </Menu.Item>
+            <Menu.Item key="help">
+                <Tooltip title="Not yet implemented.." placement="bottom">
+                    <Link to="/">Help</Link>
+                </Tooltip>
+            </Menu.Item>
+            <UserWizard open={open} handleClose={handleClose} />
+        </Menu>
     );
 };
 

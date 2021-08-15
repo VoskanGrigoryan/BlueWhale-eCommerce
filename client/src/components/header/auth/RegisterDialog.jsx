@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { Button, TextField, Typography } from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-
 import { emailError, passwordError, userNameError } from '../../Alerts';
+import { Input, Button } from 'antd';
 
 //REDUX
 //-------------------------------------------------------------------/
@@ -87,14 +86,46 @@ const RegisterDialog = ({ handleClose, stepRegister }) => {
     };
 
     return (
-        <div className="p-5" style={{ maxWidth: '550px' }}>
-            <Typography variant="h4" color="initial">
-                Register
-            </Typography>
+        <div
+            style={{
+                maxWidth: '550px',
+                marginLeft: 30,
+                marginRight: 30,
+                marginTop: 30,
+                marginBottom: 20,
+            }}
+        >
+            <div className="text-center">
+                <h3 className="mb-4">Register</h3>
+            </div>
 
-            <hr />
+            <label>Email</label>
+            <Input
+                onChange={handleChange}
+                value={email}
+                name="email"
+                autoFocus
+                id="email"
+                label="Email Address"
+                type="email"
+                fullWidth
+            />
 
-            <TextField
+            <label>Username</label>
+            <Input
+                onChange={handleChange}
+                value={userName}
+                name="userName"
+                autoFocus
+                autoComplete="false"
+                id="userName"
+                label="Username"
+                type="text"
+                fullWidth
+            />
+
+            <label>Password</label>
+            <Input
                 onChange={handleChange}
                 value={email}
                 name="email"
@@ -104,50 +135,31 @@ const RegisterDialog = ({ handleClose, stepRegister }) => {
                 label="Email Address"
                 type="email"
                 fullWidth
-                className="mt-4"
-            />
-            <TextField
-                onChange={handleChange}
-                value={userName}
-                name="userName"
-                autoFocus
-                margin="dense"
-                autoComplete="false"
-                id="userName"
-                label="Username"
-                type="text"
-                fullWidth
-            />
-            <TextField
-                onChange={handleChange}
-                value={password}
-                name="password"
-                autoFocus
-                margin="dense"
-                id="password"
-                label="Password"
-                type="password"
-                fullWidth
                 style={{ marginBottom: '25px' }}
             />
-            <Button
-                onClick={handleSubmit}
-                fullWidth
-                color="primary"
-                variant="contained"
-                className="mb-1"
-            >
-                Register
-            </Button>
-            <Button
-                onClick={resetForm}
-                color="primary"
-                fullWidth
-                variant="contained"
-                color="secondary"
-            >
-                Cancel
-            </Button>
+
+            <div className="row">
+                <div className="col-6" style={{ paddingLeft: '0px' }}>
+                    <Button
+                        onClick={handleSubmit}
+                        variant="contained"
+                        type="primary"
+                        className="w-100"
+                    >
+                        Register
+                    </Button>
+                </div>
+                <div className="col-6" style={{ paddingRight: '0px' }}>
+                    <Button
+                        onClick={resetForm}
+                        variant="contained"
+                        type="submit"
+                        className="w-100"
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </div>
 
             <hr />
 

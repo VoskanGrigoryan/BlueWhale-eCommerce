@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Button, TextField, Typography } from '@material-ui/core';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
-
 import { emailError, passwordError, loginError } from '../../Alerts';
+import { Input, Button } from 'antd';
+
 //REDUX
 //-------------------------------------------------------------------/
 import { useSelector, useDispatch } from 'react-redux';
@@ -65,26 +65,33 @@ const LoginDialog = ({ handleClose, stepLogin }) => {
     };
 
     return (
-        <div className="p-5" style={{ maxWidth: '550px' }}>
-            <Typography variant="h4" color="initial">
-                Login
-            </Typography>
+        <div
+            style={{
+                maxWidth: '550px',
+                marginLeft: 30,
+                marginRight: 30,
+                marginTop: 30,
+                marginBottom: 20,
+            }}
+        >
+            <div className="text-center">
+                <h3 className="mb-4">Login</h3>
+            </div>
 
-            <hr />
-
-            <TextField
+            <label>Email</label>
+            <Input
                 onChange={handleChange}
                 value={email}
                 name="email"
                 autoFocus
-                margin="dense"
                 id="email"
                 label="Email Address"
                 type="email"
                 fullWidth
-                className="mt-4"
             />
-            <TextField
+
+            <label>Password</label>
+            <Input
                 onChange={handleChange}
                 value={password}
                 name="password"
@@ -95,23 +102,29 @@ const LoginDialog = ({ handleClose, stepLogin }) => {
                 fullWidth
                 style={{ marginBottom: '25px' }}
             />
-            <Button
-                onClick={handleSubmit}
-                fullWidth
-                color="primary"
-                variant="contained"
-                className="mb-1"
-            >
-                Login
-            </Button>
-            <Button
-                onClick={handleClose}
-                fullWidth
-                variant="contained"
-                color="secondary"
-            >
-                Cancel
-            </Button>
+
+            <div className="row mx-0">
+                <div className="col-6" style={{ paddingLeft: '0px' }}>
+                    <Button
+                        variant="contained"
+                        type="primary"
+                        className="w-100"
+                        onClick={handleSubmit}
+                    >
+                        Login
+                    </Button>
+                </div>
+                <div className="col-6" style={{ padding: 0 }}>
+                    <Button
+                        variant="contained"
+                        type="submit"
+                        className="w-100"
+                        onClick={handleClose}
+                    >
+                        Cancel
+                    </Button>
+                </div>
+            </div>
 
             <hr />
 
