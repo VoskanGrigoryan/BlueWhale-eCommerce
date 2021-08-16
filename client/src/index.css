@@ -17,12 +17,18 @@ body {
     align-items: center;
     justify-content: center;
     display: flex;
-    padding-bottom: 470px;
+    padding-bottom: 600px;
 }
 .catalog {
     justify-content: center;
-    align-items: end;
+    align-items: start;
     display: flex;
+}
+
+.shoppingCart {
+    -webkit-box-shadow: 6px 7px 5px 0px rgba(0, 0, 0, 0.63);
+    -moz-box-shadow: 6px 7px 5px 0px rgba(0, 0, 0, 0.63);
+    box-shadow: 6px 7px 5px 0px rgba(0, 0, 0, 0.63);
 }
 hr {
     margin-bottom: 0;
@@ -40,6 +46,25 @@ h5 {
 .pointer {
     cursor: pointer;
 }
+.title {
+    font-family: 'Lemonada', cursive;
+    color: #40a9ff;
+}
+.ant-card-body {
+    padding-top: 12px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.ant-card-meta-title {
+    overflow: hidden;
+    color: rgba(0, 0, 0, 0.85);
+    font-weight: 900;
+    font-size: 20px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 4px;
+}
 .col-4 {
     text-align: center;
 }
@@ -49,8 +74,4 @@ h5 {
 }
 .row {
     margin: 0px;
-}
-img {
-    height: 250px;
-    width: 300px;
 }

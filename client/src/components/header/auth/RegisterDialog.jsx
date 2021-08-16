@@ -88,7 +88,7 @@ const RegisterDialog = ({ handleClose, stepRegister }) => {
     return (
         <div
             style={{
-                maxWidth: '550px',
+                maxWidth: '400px',
                 marginLeft: 30,
                 marginRight: 30,
                 marginTop: 30,
@@ -106,7 +106,6 @@ const RegisterDialog = ({ handleClose, stepRegister }) => {
                 name="email"
                 autoFocus
                 id="email"
-                label="Email Address"
                 type="email"
                 fullWidth
             />
@@ -119,7 +118,6 @@ const RegisterDialog = ({ handleClose, stepRegister }) => {
                 autoFocus
                 autoComplete="false"
                 id="userName"
-                label="Username"
                 type="text"
                 fullWidth
             />
@@ -127,13 +125,12 @@ const RegisterDialog = ({ handleClose, stepRegister }) => {
             <label>Password</label>
             <Input
                 onChange={handleChange}
-                value={email}
-                name="email"
+                value={password}
+                name="password"
                 autoFocus
                 margin="dense"
-                id="email"
-                label="Email Address"
-                type="email"
+                id="password"
+                type="password"
                 fullWidth
                 style={{ marginBottom: '25px' }}
             />

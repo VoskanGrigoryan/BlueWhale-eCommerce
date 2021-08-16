@@ -3,6 +3,7 @@ import { Menu } from 'antd';
 import { Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 import UserWizard from './auth/UserWizard';
+import { useLocation } from 'react-router-dom';
 
 const { SubMenu } = Menu;
 
@@ -21,6 +22,8 @@ const Navbar = () => {
     const handleClick = (e) => {
         setNavValue(e.key);
     };
+
+    const location = useLocation();
 
     return (
         <Menu

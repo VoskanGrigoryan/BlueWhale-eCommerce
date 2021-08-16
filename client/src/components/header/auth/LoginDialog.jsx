@@ -67,7 +67,7 @@ const LoginDialog = ({ handleClose, stepLogin }) => {
     return (
         <div
             style={{
-                maxWidth: '550px',
+                maxWidth: '400px',
                 marginLeft: 30,
                 marginRight: 30,
                 marginTop: 30,

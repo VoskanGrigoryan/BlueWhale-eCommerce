@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
-import {
-    Paper,
-    Typography,
-    InputBase,
-    IconButton,
-    Button,
-} from '@material-ui/core';
-import { Search } from '@material-ui/icons';
+import { Paper } from '@material-ui/core';
+import { Input } from 'antd';
 
 //REDUX
 //-------------------------------------------------------------------/
@@ -15,6 +9,8 @@ import { getProducts } from '../../redux/actions/products';
 //-------------------------------------------------------------------/
 
 import ProdCard from '../../components/ProdCard';
+
+const { Search } = Input;
 
 const Store = () => {
     //IF Only user data return state.userReducer from combine reducers
@@ -26,22 +22,17 @@ const Store = () => {
         dispatch(getProducts());
     }, []);
 
+    const onSearch = (value) => console.log(value);
+
     return (
-        <div className="min-vh-100 catalog row" style={{ paddingTop: '140px' }}>
-            <Paper elevation={5} className="col-4 p-3 row text-center">
-                <div className="p-1">
-                    <Typography variant="h4" color="primary">
-                        Catalog
-                    </Typography>
-                </div>
-
-                <Paper elevation={3} className=" mt-2">
-                    <InputBase placeholder="Search products" width="75" />
-
-                    <IconButton type="submit">
-                        <Search />
-                    </IconButton>
-                </Paper>
+        <div className="min-vh-100 catalog row bg-dark" style={{ paddingTop: '120px' }}>
+            <Paper elevation={2} className="col-3 p-3 text-center">
+                <h2 className="title mb-1">BlueWhale</h2>
+                <Search
+                    placeholder="Type the name of the item you're looking for"
+                    onSearch={onSearch}
+                    enterButton
+                />
             </Paper>
             <div className="col-12 row mx-0 p-2">
                 {products.map((item, index) => {

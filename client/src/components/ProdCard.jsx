@@ -1,27 +1,13 @@
 import React, { useState } from 'react';
-import drinks2 from '../assets/images/drinks-02.jpg';
 import ProductDialog from '../dialogs/ProductDialog';
-import { makeStyles } from '@material-ui/core/styles';
+import { Card, Avatar } from 'antd';
+import { SearchOutlined, ShoppingCartOutlined } from '@ant-design/icons';
 
-import {
-    Typography,
-    Card,
-    CardActionArea,
-    CardActions,
-    CardContent,
-    CardMedia,
-    Button,
-} from '@material-ui/core';
+import BlueWhale from '../assets/images/BlueWhale.png';
 
-const useStyles = makeStyles({
-    media: {
-        height: 180,
-    },
-});
+const { Meta } = Card;
 
 const ProdCard = ({ item }) => {
-    const classes = useStyles();
-
     const [open, setOpen] = useState(false);
 
     const handleOpen = () => {
@@ -33,35 +19,25 @@ const ProdCard = ({ item }) => {
     };
 
     return (
-        <>
-            <Card
-                onClick={(event) => console.log(event)}
-                className="col-2"
-                style={{ maxWidth: 280, margin: 10 }}
-            >
-                <CardActionArea>
-                    <CardMedia
-                        className={classes.media}
-                        image={drinks2}
-                        title={item.name}
-                    />
-                    <CardContent className="pb-0">
-                        <Typography gutterBottom variant="h5">
-                            {item.name}
-                        </Typography>
-                    </CardContent>
-                </CardActionArea>
-                <CardActions>
-                    <Button size="small" color="primary" onClick={handleOpen}>
-                        Learn More
-                    </Button>
-                    <Button size="small" color="primary">
-                        Add
-                    </Button>
-                </CardActions>
-            </Card>
+        <Card
+            className="col-4 m-1"
+            style={{ width: 300 }}
+            cover={
+                <img
+                    alt="example"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png"
+                />
+            }
+            actions={[
+                <SearchOutlined key="visualize" onClick={handleOpen} />,
+                <ShoppingCartOutlined key="cart" />,
+                <b>Price: ${item.price}</b>,
+            ]}
+        >
+            <Meta avatar={<Avatar src={BlueWhale} />} title={item.name} price="40" />
+
             <ProductDialog item={item} open={open} handleClose={handleClose} />
-        </>
+        </Card>
     );
 };
 
