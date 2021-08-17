@@ -14,11 +14,20 @@ const errors = {
     noArrivalTime: 'No valid arrival time',
     noDeliveryCost: 'Delivery cost value is not valid',
     noCartsInDB: 'No shopping carts in DB',
-    userIDInvalid: 'User ID is not valid',
+
     currentParamsNotValid: 'Provided params are not valid',
     orderDoesntExist: 'Order does not exist with this ID',
     emailNotValid: 'The provided email is not valid',
+
+    //payload
+    noPayload: 'Payload is empty',
+    invalidPayload: 'Payload is not valid',
+
+    //user
+    userIDInvalid: 'User ID is not valid',
     userDoesNotExist: 'There is not a user registered with the given credentials',
+    userNameExists: 'Username already exists',
+    userNameInvalid: 'Username is not valid or is empty',
 };
 
 const alerts = {

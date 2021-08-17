@@ -27,10 +27,28 @@ const Transporter = nodemailer.createTransport({
 //REGISTERS USER & SEND NOTIFICATION EMAIL
 const registerUser = async (req, res) => {
     const userData = req.body;
-    const { email, userName, password } = userData;
-    const emailExists = await User.findOne({ email: email });
+    const { email, userName, password, phone, address, addressNumber, city, postalCode } =
+        userData;
+
     const payload = {};
     let val = 0;
+
+    //CHECKS IF THERE IS A BODY
+    if (Object.keys(req.body).length === 0) {
+        payload.error = errors.noPayload;
+        return res.status(400).json(payload);
+    }
+
+    //EMAIL VALID: CHECKS THAT EMAIL FIELD EXISTS
+    if (email === null || email === '' || email === undefined) {
+        payload.error = errors.emailNotValid;
+        return res.status(400).json(payload);
+    }
+    const emailExists = await User.findOne({ email: email });
+    if (emailExists) {
+        payload.error = errors.emailExists;
+        return res.status(400).json(payload);
+    }
 
     const validateEmail = (email) => {
         let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -40,20 +58,27 @@ const registerUser = async (req, res) => {
             return val--;
         }
     };
-
     validateEmail(email);
 
+    //EMAIL VALID: CHECKS THAT THE EMAIL IS VALID STRING
     if (val === -1) {
         payload.error = errors.emailNotValid;
         return res.status(409).json(payload);
     }
 
-    if (emailExists) {
-        payload.error = errors.emailExists;
-        return res.status(409).json(payload);
+    //USERNAME VALID: CHECKS IF USERNAME EXISTS & IF IT'S VALID
+    if (userName === null || userName === '' || userName === undefined) {
+        payload.error = errors.userNameInvalid;
+        return res.status(400).json(payload);
+    }
+    const userNameExists = await User.findOne({ userName: userName });
+    if (userNameExists) {
+        payload.error = errors.userNameExists;
+        return res.status(400).json(payload);
     }
 
-    if (password == null || password == undefined || password.length < 5) {
+    //PASSWORD VALID: CHECKS THAT THE PASSWORD FIELD EXISTS
+    if (password === null || password === undefined || password.length < 5) {
         logger.error(errors.passwordInvalid);
         payload.error = errors.passwordInvalid;
         return res.status(409).json(payload);
@@ -75,7 +100,7 @@ const registerUser = async (req, res) => {
             html: `
             <img src="cid:unique@kreata.ee" width="1052" height="400"/>
             <h3>Hello ${userName}! This email was sent in order to notify you that an account was
-            created for the online store <h2>BlueWhale™</h2> using the following email: ${email}
+            created for the online store <h2>BlueWhale™</h2> using the following email: ${email} and address ${address}.
             If you did not create an account in this website please reach out to our support team.</h3>
             <h3>Regards, BlueWhale Development Team</h3>`,
             attachments: [

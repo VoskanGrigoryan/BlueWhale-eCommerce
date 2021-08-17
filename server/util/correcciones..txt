@@ -1,0 +1,41 @@
+1. POST register
+faltan los demas campos del usuario (telefono, direccion, etc)
+Si no mando ningun body rompe la app (Error Cannot read property 'match' of undefined)
+en vez de mandar un error 409 cuando falla el mail, enviar un 400 bad request
+Bien la validacion de email ya utilizado, deberia hacerse lo mismo con el userName
+
+2. POST login
+devuelve error 404, deberia ser 401 unathorized
+no deberia decir porque fallo el login, simplemnete responder 401 unathorized
+
+3. GET Users
+deberia estar segurizada esa ruta. es informacion sensible!
+
+4. GET get-products
+nunca poner nombre del verbo http en la ruta. para eso esta el verbo
+si no hay productos deberia responder 200 con un array vacio, no 409 conflict
+
+5. POST new-product
+solo deberia llamarse product la ruta.
+el post ya implicitamente dice que es para crear un nuevo producto
+no debe enviar 409 en caso de haber un campo no valido, debe responder 400 bad request
+
+6. POST update-product
+la ruta deberia ser PUT product/:productId
+si no mando id, me devuelve que el nombre del prodycto no existe y error 409. deberia mandar 400
+
+7. DELETE delete-product
+la ruta deberia ser DELETE product/:productId  y sin enviar un body
+
+8. GRAVE: la api de products no me pide el token nunca, pude hacer el CRUD sin pasar ningun token
+
+9. GET carts
+si no hya carrito deberia responder 200 y el array vacio
+mismos comentarios sobre las rutas POST, PUT y DELETE hecho en la api de products, para carts
+
+10. POST /add/item
+deberia tener antes un /cart
+no verifica si el producto existe o no
+no hay chequeo de stocks
+falta agregado de imagenes
+falto chat
