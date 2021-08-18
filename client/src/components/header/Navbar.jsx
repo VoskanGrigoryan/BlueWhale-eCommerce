@@ -3,13 +3,24 @@ import { Menu } from 'antd';
 import { Tooltip } from 'antd';
 import { Link } from 'react-router-dom';
 import UserWizard from './auth/UserWizard';
-import { useLocation } from 'react-router-dom';
+// import { useLocation } from 'react-router-dom';
+import CreateProductDialog from '../../dialogs/CreateProductDialog';
 
 const { SubMenu } = Menu;
 
 const Navbar = () => {
     const [open, setOpen] = useState(false);
     const [navValue, setNavValue] = useState('');
+
+    const [openProduct, setOpenProduct] = useState(false);
+
+    const openCreateProd = () => {
+        setOpenProduct(true);
+    };
+
+    const closeCreateProd = () => {
+        setOpenProduct(false);
+    };
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -23,7 +34,7 @@ const Navbar = () => {
         setNavValue(e.key);
     };
 
-    const location = useLocation();
+    // const location = useLocation();
 
     return (
         <Menu
@@ -56,6 +67,12 @@ const Navbar = () => {
                 <Link to="/shopping-cart">Shopping Cart</Link>
             </Menu.Item>
 
+            <Menu.Item key="new-product" onClick={openCreateProd}>
+                <Tooltip title="Only for admins!" placement="bottom">
+                    Add product
+                </Tooltip>
+            </Menu.Item>
+
             <Menu.Item key="settings">
                 <Tooltip title="Not yet implemented.." placement="bottom">
                     Settings
@@ -72,6 +89,10 @@ const Navbar = () => {
                 </Tooltip>
             </Menu.Item>
             <UserWizard open={open} handleClose={handleClose} />
+            <CreateProductDialog
+                openProduct={openProduct}
+                closeCreateProd={closeCreateProd}
+            />
         </Menu>
     );
 };

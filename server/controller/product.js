@@ -12,6 +12,8 @@ const logger = log4js.getLogger('default');
 const newProduct = async (req, res) => {
     const { name, amount, description, alcoholLevel, price, imageUrl } = req.body;
 
+    console.log(req.body);
+
     try {
         const productExists = await Product.findOne({ name: name });
         if (productExists) {
@@ -35,7 +37,7 @@ const newProduct = async (req, res) => {
             price === null ||
             price === undefined
         ) {
-            return res.status(409).json({ error: errors.payloadInvalid });
+            return res.status(400).json({ error: errors.payloadInvalid });
         }
 
         const currentTime = new Date();
@@ -64,7 +66,7 @@ const getProducts = async (req, res) => {
     let products = await Product.find();
 
     if (products.length === 0) {
-        return res.status(409).json({ alert: alerts.noProducts });
+        return res.status(200).json(products);
     }
 
     res.status(200).send(products);
@@ -78,10 +80,10 @@ const updateProduct = async (req, res) => {
     let existingProdName = await Product.findOne({ name: product.name });
 
     if (existingProdName) {
-        return res.status(409).json({ error: errors.productNameExists });
+        return res.status(400).json({ error: errors.productNameExists });
     }
     if (!selectedProd) {
-        return res.status(409).json({ error: errors.productDoesntExist });
+        return res.status(404).json({ error: errors.productDoesntExist });
     }
 
     let payload = {

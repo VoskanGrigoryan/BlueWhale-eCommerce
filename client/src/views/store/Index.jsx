@@ -34,7 +34,7 @@ const Store = () => {
                     enterButton
                 />
             </Paper>
-            <div className="col-12 row mx-0 p-2">
+            <div className="col-12 row justify-content-between mx-0">
                 {products.map((item, index) => {
                     return <ProdCard key={index} item={item} index={index} />;
                 })}

@@ -3,8 +3,6 @@ import { Button, Typography } from 'antd';
 
 import { Link } from 'react-router-dom';
 
-const { Title } = Typography;
-
 const WelcomePage = () => {
     return (
         <div className="min-vh-100 row text-center" style={{ paddingTop: 120 }}>

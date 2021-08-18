@@ -17,21 +17,21 @@ router.post('/login', loginUser);
 router.get('/users', allUsers);
 
 //Product routes
-router.post('/new-product', newProduct);
-router.get('/get-products', getProducts);
+router.post('/product', newProduct);
+router.get('/products', getProducts);
 router.put('/update-product', updateProduct);
-router.delete('/delete-product', deleteProduct);
+router.delete('/product', deleteProduct);
 
 //Cart routes
-router.post('/create-cart', newCart);
+router.post('/cart', newCart);
 router.get('/carts', getCarts);
-router.post('/add-item', addItem);
+router.post('/cart/add-item', addItem);
 //Much easier to use SEND with the cart data and find the product to delete
 // router.delete('/delete-item', deleteItem);
-router.post('/delete-item', deleteItem);
+router.post('/cart/delete-item', deleteItem);
 
 //Order routes
-router.post('/create-order', createOrder);
-router.post('/confirm-order', confirmOrder);
+router.post('/order/create-order', createOrder);
+router.post('/order/confirm-order', confirmOrder);
 
 export default router;

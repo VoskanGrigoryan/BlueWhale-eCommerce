@@ -66,6 +66,28 @@ const registerUser = async (req, res) => {
         return res.status(409).json(payload);
     }
 
+    //PHONE VALID: CHECKS IF THERE IS A PHONE IN DB
+    if (phone === null || phone === '' || phone === undefined) {
+        payload.error = errors.phoneNotValid;
+        return res.status(400).json(payload);
+    }
+    const phoneExists = await User.findOne({ phone: phone });
+    if (phoneExists) {
+        payload.error = errors.phoneExistsInDB;
+        return res.status(400).json(payload);
+    }
+
+    //ADDRESS VALID: CHECKS ADDRESS & ADDRESS NUMBER
+    if (address === null || address === '' || address === undefined) {
+        payload.error = errors.addressExists;
+        return res.status(400).json(payload);
+    }
+
+    if (addressNumber === null || addressNumber === '' || addressNumber === undefined) {
+        payload.error = errors.addressNumberNotValid;
+        return res.status(400).json(payload);
+    }
+
     //USERNAME VALID: CHECKS IF USERNAME EXISTS & IF IT'S VALID
     if (userName === null || userName === '' || userName === undefined) {
         payload.error = errors.userNameInvalid;
@@ -140,7 +162,7 @@ const loginUser = async (req, res) => {
 
     if (!user) {
         return (
-            res.status(404).send({ error: 'No hay usuario' }),
+            res.status(401).send({ error: errors.unathorizedLogin }),
             logger.error(errors.userDoesntExist)
         );
     }
@@ -149,7 +171,7 @@ const loginUser = async (req, res) => {
     const validPassword = await bcrypt.compareSync(password, userPassword);
 
     if (!validPassword) {
-        res.status(409).json({ error: errors.userDoesNotExist });
+        res.status(401).json({ error: errors.userDoesNotExist });
         logger.error(errors.passwordInvalid);
         return;
     }

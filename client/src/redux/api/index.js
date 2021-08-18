@@ -7,20 +7,20 @@ const registerUserUrl = localhost + '/register';
 const loginUserUrl = localhost + '/login';
 
 //Products
-const createProdUrl = localhost + '/new-product';
-const getProductsUrl = localhost + '/get-products';
+const createProdUrl = localhost + '/product';
+const getProductsUrl = localhost + '/products';
 const updateProductUrl = localhost + '/update-product';
-const deleteProductUrl = localhost + '/delete-product';
+const deleteProductUrl = localhost + '/product/:productId';
 
 //Shopping Cart
-const newCartUrl = localhost + '/create-cart';
+const newCartUrl = localhost + '/cart';
 const getCartsUrl = localhost + '/carts';
-const addItemUrl = localhost + '/add-item';
-const deleteItemUrl = localhost + '/delete-item';
+const addItemUrl = localhost + '/cart/add-item';
+const deleteItemUrl = localhost + '/cart/delete-item';
 
 //Orders
-const createOrderUrl = localhost + '/create-order';
-const confirmOrderUrl = localhost + '/confirm-order';
+const createOrderUrl = localhost + '/order/create-order';
+const confirmOrderUrl = localhost + '/order/confirm-order';
 
 //------------------------------------------------------------------------------------------------------------------//
 
