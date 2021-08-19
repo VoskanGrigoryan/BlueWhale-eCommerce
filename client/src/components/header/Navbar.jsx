@@ -41,7 +41,7 @@ const Navbar = () => {
             onClick={handleClick}
             selectedKeys={[navValue]}
             mode="horizontal"
-            className="d-flex justify-content-center shadow-sm w-100 position-fixed"
+            className="d-flex justify-content-center navigationBar w-100 position-fixed"
         >
             <SubMenu key="products" title="Products">
                 <Menu.ItemGroup title="Choose:">

@@ -130,7 +130,7 @@ const LoginDialog = ({ handleClose, stepLogin }) => {
 
             <p className="mt-3 mb-0 text-center">
                 If you don't have an account yet click{' '}
-                <b onClick={stepLogin} className="pointer">
+                <b onClick={stepLogin} className="pointer color">
                     here
                 </b>
             </p>

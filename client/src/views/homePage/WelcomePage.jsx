@@ -3,22 +3,17 @@ import { Button, Typography } from 'antd';
 
 import { Link } from 'react-router-dom';
 
+const { Title } = Typography;
+
 const WelcomePage = () => {
     return (
         <div className="min-vh-100 row text-center" style={{ paddingTop: 120 }}>
-            <div>
-                <h1 className="title">BlueWhale</h1>
-            </div>
-            <div className="welcomeBox">
-                <div>
-                    <h3>Buy your drinks online</h3>
-                </div>
-                <div style={{ marginLeft: '5px' }}>
-                    <Link to="/store" className="links">
-                        <Button type="primary">HERE</Button>
-                    </Link>
-                </div>
-            </div>
+            <Title level={2}>
+                Buy your drinks{' '}
+                <Link to="/store" className="links">
+                    here
+                </Link>
+            </Title>
         </div>
     );
 };

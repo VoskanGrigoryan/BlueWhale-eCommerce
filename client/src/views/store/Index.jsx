@@ -25,15 +25,14 @@ const Store = () => {
     const onSearch = (value) => console.log(value);
 
     return (
-        <div className="min-vh-100 catalog row bg-dark" style={{ paddingTop: '120px' }}>
-            <Paper elevation={2} className="col-3 p-3 text-center">
-                <h2 className="title mb-1">BlueWhale</h2>
+        <div className="min-vh-100 catalog row" style={{ paddingTop: '120px' }}>
+            <div className="col-3 text-center">
                 <Search
-                    placeholder="Type the name of the item you're looking for"
+                    placeholder="Search by product name"
                     onSearch={onSearch}
                     enterButton
                 />
-            </Paper>
+            </div>
             <div className="col-12 row justify-content-between mx-0">
                 {products.map((item, index) => {
                     return <ProdCard key={index} item={item} index={index} />;

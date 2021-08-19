@@ -162,7 +162,7 @@ const RegisterDialog = ({ handleClose, stepRegister }) => {
 
             <p className="mt-3 mb-0 text-center">
                 If you already have an account click{' '}
-                <b onClick={stepRegister} className="pointer">
+                <b onClick={stepRegister} className="pointer color">
                     here
                 </b>
             </p>
